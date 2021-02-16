@@ -1,0 +1,5 @@
+docker run -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" docker.elastic.co/elasticsearch/elasticsearch:7.11.0
+
+
+https://github.com/dockerfile/elasticsearch
+https://github.com/dockerfile/nginx
