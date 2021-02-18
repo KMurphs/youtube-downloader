@@ -38,9 +38,3 @@ ul.reset ul li {
    text-indent: 0;
    list-style-type: none;
 }
-
-
-
-.position-absolute{ position: absolute; }
-.r-4{ right: 1rem; }
-.r-6{ right: 1.5rem; }

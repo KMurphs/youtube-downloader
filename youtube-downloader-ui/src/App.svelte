@@ -2,11 +2,12 @@
 	export let name: string;
 	import Nav from "./nav.svelte";
 	import Header from "./header.svelte";
+	import Registry from "./registry.svelte";
 </script>
 
 <div class="app-container">
 	<Header/>
-	<main>My Main Section</main>
+	<Registry/>
 	<Nav/>
 </div>
 
@@ -16,6 +17,7 @@
 	width: 100%;
 	height: 100%;
 	display: flex;
+	padding: 1rem;
 	flex-direction: column;
 	justify-content: flex-start;
 	align-items: stretch;
