@@ -28,3 +28,19 @@ body::before{
 	height: 20vh;
 	background-color: #DC2925;
 }
+
+
+ul.reset,
+ul.reset li,
+ul.reset ul li {
+   margin:0;
+   padding: 0;
+   text-indent: 0;
+   list-style-type: none;
+}
+
+
+
+.position-absolute{ position: absolute; }
+.r-4{ right: 1rem; }
+.r-6{ right: 1.5rem; }
