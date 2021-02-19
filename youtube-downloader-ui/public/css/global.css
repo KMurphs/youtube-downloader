@@ -1,7 +1,16 @@
+/* https://help.campaignmonitor.com/email-builder-font-compatibility */
+
+
 *, *::after, *::before {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;	
+}
+*{
+	font-family: 'Merriweather', DejaVu Sans Serif, Georgia, serif;
+	font-size: 100%;
+	line-height: 1.5;
+	font-weight: 200;
 }
 
 
@@ -29,6 +38,9 @@ body::before{
 	background-color: #DC2925;
 }
 
+h1, h2, h3, h4, h5, h6{
+	/* font-family: 'Lora', Palatino, Book Antiqua, Georgia, serif; */
+}
 
 ul.reset,
 ul.reset li,

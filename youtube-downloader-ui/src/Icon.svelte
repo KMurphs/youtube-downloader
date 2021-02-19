@@ -1,12 +1,12 @@
 <script lang="ts">
-	export let faClass: string;
-	export let faBase: string;
-	export let extraClass: string;
+	export let faClass: string = "fa-download";
+	export let faBase: string = "fas";
+	export let extraClass: string = "";
 </script>
 
 <span class={`icon ${extraClass}`}>
 	<!-- TODO: Add Tooltip -->
-	<i class={`${faBase || 'fas'} ${faClass || 'fa-download'}`}></i>
+	<i class={`${faBase} ${faClass}`}></i>
 </span>
 
 

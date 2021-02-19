@@ -1,8 +1,8 @@
 <script lang="ts">
-	export let name: string;
-	import Nav from "./nav.svelte";
-	import Header from "./header.svelte";
-	import Registry from "./registry.svelte";
+	// export let name: string;
+	import Nav from "./Nav.svelte";
+	import Header from "./Header.svelte";
+	import Registry from "./Registry.svelte";
 </script>
 
 <div class="app-container">
@@ -21,7 +21,7 @@
 	flex-direction: column;
 	justify-content: flex-start;
 	align-items: stretch;
-	background-color: #eee;
+	background-color: #F5F6FA;
 	position: relative;
 	z-index: 10;
 	box-shadow: 0 1px 1px 0 rgba(0,0,0,.06),0 2px 5px 0 rgba(0,0,0,.2);

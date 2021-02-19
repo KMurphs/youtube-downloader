@@ -14,7 +14,7 @@
 	align-items: center;
 	justify-content: space-between;
 	position: relative;
-	margin-bottom: 1rem;
+	margin-bottom: 4rem;
 }
 
 input{
@@ -30,7 +30,7 @@ input{
 
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
 	font-size: .9rem;
-	letter-spacing: .1px;
+	/* letter-spacing: .1px; */
 	color: #aaa;
 }
 ::-moz-placeholder { /* Firefox 19+ */
