@@ -148,6 +148,13 @@
 	display: flex;
 	justify-content: space-between;
 	grid-area: 2 / 1 / 3 / 3;
+	/* height: 100%; */
+    height: 1px;
+    overflow-y: hidden;
+    transition: height .3s;
+}
+#toggle-details:checked ~ .group__details{
+	height: 100%;
 }
 .group__misc-details{
 	display: flex;
