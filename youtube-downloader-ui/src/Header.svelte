@@ -14,7 +14,7 @@
 	align-items: center;
 	justify-content: space-between;
 	position: relative;
-	margin-bottom: 4rem;
+	/* margin-bottom: 4rem; */
 }
 
 input{

@@ -4,7 +4,11 @@
 </script>
 
 <section class="group">
+	
 	<aside class="group__date">16<br><span class="group__text--muted">Oct</span></aside>
+
+
+	<!-- Video title, author, thumbnail and link -->
 	<header class="group__header">
 		<a href="#1" class={`reset group__thumbnail ${url ? '' : 'group__thumbnail--placeholder'}`}>
 			{#if url}
@@ -18,12 +22,28 @@
 			<h2 class="group__subtitle">Author</h2>
 		</div>
 	</header>
-	<footer><span>keywords</span><span>author, length, completed at</span></footer>
+
+
+	<!-- More Details about current video length, keywords -->
+	<input type="checkbox" id="toggle-details">
+	<footer class="group__details">
+		<div class="group__keywords"><span class="group__keyword">keyword</span><span class="group__keyword">keyword</span><span class="group__keyword">keyword</span><span class="group__keyword">keyword</span><span class="group__keyword">keyword</span><span class="group__keyword">keyword</span></div>
+		<div class="group__misc-details">
+			<span class="">214 <span class="group__text--muted">sec</span></span>
+			<span class="group__detail-label group__text--muted">Downloaded at:</span>
+			<span class="">2021-02-13 15:14:23</span>
+		</div>
+	</footer>
+	
+
+	<!-- Controls for the ui group/component -->
 	<aside class="group__options">
+		<label for="toggle-details"><Icon extraClass="icon--option" faClass="fa-search"/></label>
 		<Icon extraClass="icon--option" faClass="fa-search"/>
-		<Icon extraClass="icon--option" faClass="fa-search"/>
-		<Icon extraClass="icon--option" faClass="fa-search"/>
+		<!-- <Icon extraClass="icon--option" faClass="fa-search"/> -->
 	</aside>
+
+
 </section>
 
 <style>
@@ -122,5 +142,43 @@
 }
 .group__title-block{
 	flex: 1 0 0;
+}
+.group__details{
+	padding-top: 1rem;
+	display: flex;
+	justify-content: space-between;
+	grid-area: 2 / 1 / 3 / 3;
+}
+.group__misc-details{
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	padding-right: .5rem;
+}
+.group__detail-label{
+	margin-top: .5rem;
+	font-weight: normal;
+}
+.group__keywords{
+	max-width: 50%;
+}
+.group__keyword{
+	padding: .1rem .5rem;
+	margin: 1px;
+	border: 1px solid #d4d5d8;
+	border-radius: 10px;
+	font-size: .7rem;
+	color: #d4d5d8;
+	transition: color .3s;
+	display: inline-block;
+}
+.group__keywords:hover .group__keyword{
+	color: #000;
+}
+.group__keywords:hover .group__keyword:hover{
+	background-color: rgba(0,0,0,.05);
+}
+input{
+	display: none;
 }
 </style>
