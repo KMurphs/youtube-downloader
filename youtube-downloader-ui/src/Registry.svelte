@@ -1,24 +1,13 @@
 <script lang="ts">
 	let url: string|null = null;
-	// import Icon from "./Icon.svelte";
+	import RegistryItem from "./RegistryItem.svelte";
 	// export let name: string;
 </script>
 
 <main>
-	<section class="group">
-		<span class="group__date">16<br><span class="group__text--muted">Oct</span></span>
-		<div>
-			<a href="#1">
-				{#if url}
-					<img src="" alt="">
-				{:else}
-					<span><i class="fas fa-video-slash"></i></span>
-				{/if}
-			</a>
-			<span>title</span>
-		</div>
-		<div><span>keywords</span><span>author, length, completed at</span></div>
-	</section>
+	<RegistryItem/>
+	<RegistryItem/>
+	<RegistryItem/>
 </main>
 
 <style>

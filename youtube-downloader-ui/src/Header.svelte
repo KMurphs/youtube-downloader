@@ -5,7 +5,7 @@
 
 <header class="app-header">
 	<input type="text" placeholder="Enter text to filter displayed items">
-	<Icon extraClass="icon--inline position-absolute r-2" faClass="fa-search"/>
+	<Icon extraClass="icon--image position-absolute r-2" faClass="fa-search"/>
 </header>
 
 <style>

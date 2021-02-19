@@ -1,4 +1,11 @@
 .position-absolute{ position: absolute; }
+.r-0{ right: 0; }
 .r-2{ right: .5rem; }
 .r-4{ right: 1rem; }
 .r-6{ right: 1.5rem; }
+.t-0{ top: 0; }
+.t-2{ top: .5rem; }
+.t-4{ top: 1rem; }
+.t-6{ top: 1.5rem; }
+.h-auto{ height: auto; }
+.h-auto-imp{ height: auto !important; }
