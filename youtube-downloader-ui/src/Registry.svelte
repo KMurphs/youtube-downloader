@@ -1,13 +1,26 @@
 <script lang="ts">
 	let url: string|null = null;
+	import RegistryGroup from "./RegistryGroup.svelte";
 	import RegistryItem from "./RegistryItem.svelte";
 	// export let name: string;
 </script>
 
 <main class="registry">
-	<RegistryItem/>
-	<RegistryItem/>
-	<RegistryItem/>
+	<RegistryGroup>
+		<RegistryItem/>
+		<RegistryItem/>
+		<RegistryItem/>
+	</RegistryGroup>
+	<RegistryGroup>
+		<RegistryItem/>
+		<RegistryItem/>
+		<RegistryItem/>
+	</RegistryGroup>
+	<RegistryGroup>
+		<RegistryItem/>
+		<RegistryItem/>
+		<RegistryItem/>
+	</RegistryGroup>
 </main>
 
 <style>
