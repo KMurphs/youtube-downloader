@@ -5,9 +5,6 @@
 
 <section class="group">
 	
-	<aside class="group__date">16<br><span class="group__text--muted">Oct</span></aside>
-
-
 	<!-- Video title, author, thumbnail and link -->
 	<header class="group__header">
 		<a href="#1" class={`reset group__thumbnail ${url ? '' : 'group__thumbnail--placeholder'}`}>

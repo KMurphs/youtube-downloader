@@ -26,6 +26,10 @@
 		border-radius: 50%;
 		z-index: 10;
 		background-color: #fff;
+		width: 1rem;
+		height: 1rem;
+		left: -.5rem;
+		top: 1rem;
 		--size: 1rem;
 		width: var(--size);
 		height: var(--size);
