@@ -4,17 +4,21 @@
 </script>
 
 <header class="app-header">
-	<input type="text" placeholder="Enter text to filter displayed items">
-	<Icon extraClass="icon--image position-absolute r-2" faClass="fa-search"/>
+	<h1>Videos</h1>
+	<div class="app-header__search-input">
+		<input type="text" placeholder="Enter text to filter displayed items">
+		<Icon extraClass="icon--image position-absolute r-2" faClass="fa-search"/>
+	</div>
 </header>
 
 <style>
-.app-header{
+
+.app-header__search-input{
 	display: flex;
 	align-items: center;
+	flex-wrap: wrap;
 	justify-content: space-between;
 	position: relative;
-	/* margin-bottom: 4rem; */
 }
 
 input{

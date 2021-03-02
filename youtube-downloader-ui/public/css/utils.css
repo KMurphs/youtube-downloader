@@ -7,6 +7,16 @@
 .t-2{ top: .5rem; }
 .t-4{ top: 1rem; }
 .t-6{ top: 1.5rem; }
+.b-0{ bottom: 0; }
+.b-2{ bottom: .5rem; }
+.b-4{ bottom: 1rem; }
+.b-6{ bottom: 1.5rem; }
 .h-auto{ height: auto; }
 .h-auto-imp{ height: auto !important; }
 .rotate-180{ transform: rotate(180deg); }
+.square-2{ width: .5rem; height: .5rem}
+.square-4{ width: 1rem; height: 1rem}
+.square-6{ width: 1.5rem; height: 1.5rem}
+.square-2--important{ width: .5rem !important; height: .5rem !important; }
+.square-4--important{ width: 1rem !important; height: 1rem !important; }
+.square-6--important{ width: 1.5rem !important; height: 1.5rem !important; }

@@ -1,10 +1,13 @@
 <script lang="ts">
+	import { createEventDispatcher } from "svelte";
+	const dispatch = createEventDispatcher();
 	export let name: string;
 	import Icon from "./Icon.svelte";
 </script>
 
 <nav class="app-nav">
 	<ul class="reset">
+		<li><Icon faClass="fa-columns" on:click={() => dispatch("sidePanelOpen", null)}/></li>
 		<li><Icon faClass="fa-info"/></li>
 		<li><Icon faClass="fa-bars"/></li>
 		<li><Icon faClass="fa-plus"/></li>

@@ -1,17 +1,22 @@
 <script lang="ts">
+	import { createEventDispatcher } from "svelte";
+	const dispatch = createEventDispatcher();
+
 	export let faClass: string = "fa-download";
 	export let faBase: string = "fas";
 	export let extraClass: string = "icon--btn";
 </script>
 
-<span class={`icon ${extraClass}`}>
+<button class={`icon ${extraClass}`} on:click={e => dispatch("click", e)}>
 	<!-- TODO: Add Tooltip -->
 	<i class={`${faBase} ${faClass}`}></i>
-</span>
+</button>
 
 
 <style>
 .icon{
+	outline: none;
+    border: none;
 	display: inline-flex;
 	justify-content: center;
 	align-items: center;
