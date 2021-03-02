@@ -3,14 +3,11 @@
 	import Nav from "./Nav.svelte";
 	import Header from "./Header.svelte";
 	import Registry from "./Registry.svelte";
-	import SidePanel from "./SidePanel.svelte";
 	import Modal from "./Modal.svelte";
 
-	let isSidePanelShowing = false;
 	let isModalShowing = false;
 </script>
 
-<!-- <SidePanel on:sidePanelClose={()=>(isSidePanelShowing=false)}/> -->
 <Modal visible={isModalShowing} on:closeModal={()=>(isModalShowing = false)}/>
 
 <div class="app-container">
