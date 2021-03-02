@@ -3,12 +3,15 @@
 	import Nav from "./Nav.svelte";
 	import Header from "./Header.svelte";
 	import Registry from "./Registry.svelte";
+	import Tmp from "./Tmp.svelte";
 	import Modal from "./Modal.svelte";
 
 	let isModalShowing = false;
 </script>
 
-<Modal visible={isModalShowing} on:closeModal={()=>(isModalShowing = false)}/>
+<Modal visible={isModalShowing} on:closeModal={()=>(isModalShowing = false)}>
+	<Tmp on:closeModal={()=>(isModalShowing = false)}/>
+</Modal>
 
 <div class="app-container">
 	<Header/>
