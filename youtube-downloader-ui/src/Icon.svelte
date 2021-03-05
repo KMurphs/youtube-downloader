@@ -1,13 +1,10 @@
 <script lang="ts">
-	import { createEventDispatcher } from "svelte";
-	const dispatch = createEventDispatcher();
-
 	export let faClass: string = "fa-download";
 	export let faBase: string = "fas";
 	export let extraClass: string = "icon--btn";
 </script>
 
-<button class={`icon ${extraClass}`} on:click={e => dispatch("click", e)}>
+<button class={`icon ${extraClass}`} on:click>
 	<!-- TODO: Add Tooltip -->
 	<i class={`${faBase} ${faClass}`}></i>
 </button>
@@ -35,6 +32,7 @@
 }
 .icon.icon--btn:hover{
 	box-shadow: 0 2px 2px 0 rgba(0,0,0,.06),0 4px 10px 0 rgba(0,0,0,.2);
+	transform: scale(1.05);
 }
 .icon.icon--image{
 	height: 100%;

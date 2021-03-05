@@ -6,7 +6,7 @@
 </script>
 
 <main class="registry">
-	<RegistryGroup>
+<RegistryGroup>
 		<RegistryItem/>
 		<RegistryItem/>
 		<RegistryItem/>
