@@ -7,9 +7,28 @@
 	import Tmp from "./Tmp.svelte";
 	import Modal from "./Modal.svelte";
 	import defineVH from "./vh";
+	import withMenu from "./context-menu";
+	import menuStore from "./context-menu.store";
+	import getData from "./data";
 	onMount(defineVH);
+	onMount(()=>withMenu(document.querySelector(".app-container"), menuStore));
+	
 
 	let isModalShowing = false;
+
+	const data = getData();
+	let isInSelectionMode = false;
+	let selected = [];
+	$: console.log(...selected);
+	const handleSelectionChange = ({id, state})=>{
+		state && !selected.includes(id) && (selected = [...selected, id]);
+		!state && selected.includes(id) && (selected = selected.filter(item => item !== id));
+	}
+	const handleSelectionControlAction = ({detail}) => {
+		(detail === "select-all") && ({});
+		(detail === "select-none") && (selected = []);
+		(detail === "cancel") && (isInSelectionMode = false);
+	}
 </script>
 
 <Modal visible={isModalShowing} on:closeModal={()=>(isModalShowing = false)}>
@@ -17,8 +36,8 @@
 </Modal>
 
 <div class="app-container">
-	<Header/>
-	<Registry/>
+	<Header bind:isInSelectionMode on:selectionControlAction={handleSelectionControlAction}/>
+	<Registry {data} bind:isInSelectionMode on:selectionChange={({detail})=>handleSelectionChange(detail)}/>
 	<!-- <Nav on:sidePanelOpen={()=>(isSidePanelShowing=true)}/> -->
 	<Nav on:sidePanelOpen={()=>(isModalShowing=true)}/>
 </div>

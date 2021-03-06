@@ -1,7 +1,7 @@
 <script lang="ts">
 	// import Icon from "./Icon.svelte";
-	// let url: string|null = null;
-	const [day, month]: [number, string] = [16, "Oct"]
+	export let data: [number, string]|[number, string, number] = [16, "Oct"];
+	const [day, month] = data;
 </script>
 
 <section class="group">

@@ -1,4 +1,4 @@
-import { TCoordinates, TMenuItem, TMenuStore } from './menu.types';
+import type { TCoordinates, TMenuItem, TMenuStore } from './context-menu.types';
 
 // TODO: Modify menu placement function "moveNodeTo" to handle placing submenus
 
@@ -109,7 +109,7 @@ const bringUpMenu = (
   // Prepare the menu items
   items.map(({onClick, ...rest}) => ({...rest, ...{"onClick": bringDownMenuHOF(onClick)}}))
        .map(buildUpMenuItem.bind(null, classMenuPane, classSubMenuSrc))
-       .forEach(list.appendChild);
+       .forEach((node: HTMLElement) => list.appendChild(node));
   
   // Move menu to some position while preventing overflows ...
   moveNodeTo(menu, {x, y});
@@ -126,11 +126,12 @@ const withMenu = (root: HTMLElement, menuStore: TMenuStore, classMenuSrc = "has-
   root.addEventListener("click", (evt)=>{
     
     // By default, after every click anywhere in root, remove menu if displayed
-    evt.preventDefault();
     cleanupMenu && cleanupMenu();
     
     // Did we click inside a node that needs a menu?
     const menuNode = bubbleToClassOwner(evt, classMenuSrc);
+    
+    // menuNode && evt.preventDefault();
     
     // We did. Get Menu items, and build up the menu around click coords
     menuNode && menuStore && menuStore.getItems && (

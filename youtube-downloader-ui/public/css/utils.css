@@ -33,3 +33,5 @@
 .hover\:bg-dark-5--important:hover{background-color: rgba(0,0,0,0.05) !important;}
 .hover\:bg-dark-10--important:hover{background-color: rgba(0,0,0,0.1) !important;}
 .scale-up-10{transform: scale(1.1);}
+.hidden{ display: none !important; }
+.visible{ display: unset; }

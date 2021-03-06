@@ -2,25 +2,36 @@
 	let url: string|null = null;
 	import RegistryGroup from "./RegistryGroup.svelte";
 	import RegistryItem from "./RegistryItem.svelte";
-	// export let name: string;
+
+
+	export let isInSelectionMode = false;
+	export let data: TRegisterData = {};
+	const keys = Object.keys(data).sort((a,b)=>data[a][0].created - data[b][0].created);
+	const getGroupData = (data: TItemExtended): [number, string, number] => ([data.date, data.month, data.year])
+
+
+	import { createEventDispatcher } from 'svelte';
+	import type { TItemExtended, TRegisterData } from "./App.types";
+
+	const dispatch = createEventDispatcher();
+	const forward = ({type, detail}) => dispatch(type, detail);
+</script>
+
+<script context="module">
+    let counter = 0
+	const getId = ()=>counter++;
+	const itemId = `item-checkbox-${getId()}`;
 </script>
 
 <main class="registry">
-	<RegistryGroup>
-		<RegistryItem/>
-		<RegistryItem/>
-		<RegistryItem/>
-	</RegistryGroup>
-	<RegistryGroup>
-		<RegistryItem/>
-		<RegistryItem/>
-		<RegistryItem/>
-	</RegistryGroup>
-	<RegistryGroup>
-		<RegistryItem/>
-		<RegistryItem/>
-		<RegistryItem/>
-	</RegistryGroup>
+{#each keys as key (key)}
+<RegistryGroup data={getGroupData(data[key][0])}>
+	{#each data[key] as item (item.id)}
+	<RegistryItem bind:data={item} bind:isInSelectionMode on:selectionChange={forward}/>
+	{/each}
+</RegistryGroup>
+{/each}
+
 </main>
 
 <style>
@@ -39,4 +50,5 @@
 		padding: 2rem;
 	}
 }
+
 </style>

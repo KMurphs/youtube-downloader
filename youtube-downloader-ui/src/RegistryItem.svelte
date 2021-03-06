@@ -1,10 +1,42 @@
+<!-- <script context="module">
+    let counter = 0
+	const getId = ()=>counter++;
+	const itemId = `item-checkbox-${getId()}`;
+</script> -->
+
 <script lang="ts">
 	import Icon from "./Icon.svelte";
+	import { longpress } from './longpress';
 	let url: string|null = null;
+
+	export let data: TItemExtended;
+	const {id, title, author, keywords} = data;
+	$: itemId = `item-checkbox-${id}`;
+
+
+
+	import { createEventDispatcher } from "svelte";
+	import type { TItemExtended } from "./App.types";
+	export let isInSelectionMode = false;
+	let isSelected = false;
+	
+	const dispatch = createEventDispatcher();
+	const hanldeSelectionChange = ()=>{
+		isSelected = !isSelected;
+		dispatch("selectionChange", {id: id, state: isSelected});
+	}
 </script>
 
-<section class="group">
-	
+
+
+
+
+<section class="group" use:longpress on:longpress={e => (isInSelectionMode = true) && hanldeSelectionChange()}>
+	{#if isInSelectionMode}
+	<label for={itemId} class="group__checkbox">
+		<input type="checkbox" id={itemId} checked={isSelected} on:change={hanldeSelectionChange}>
+	</label>
+	{/if}
 	<a href="#1" class={`reset group__thumbnail ${url ? '' : 'group__thumbnail--placeholder'}`}>
 		{#if url}
 			<img  class="" src="" alt="">
@@ -13,11 +45,15 @@
 		{/if}
 	</a>
 	<div class="group__title-block">
-		<h1 class="group__title">title</h1>
-		<h2 class="group__subtitle">Author</h2>
-		<div class="group__keywords"><span class="group__keyword">keyword</span><span class="group__keyword">keyword</span><span class="group__keyword">keyword</span><span class="group__keyword">keyword</span><span class="group__keyword">keyword</span><span class="group__keyword">keyword</span></div>
+		<h1 class="group__title">{title}</h1>
+		<h2 class="group__subtitle">{author}</h2>
+		<div class="group__keywords">
+			{#each keywords.split(", ") as keyword}
+			<span class="group__keyword">{keyword}</span>
+			{/each}
+		</div>
 	</div>
-	<div class="group__more">
+	<div class="group__more has-menu">
 		<Icon extraClass="icon--option no-box-shadow--important hover:bg-dark-5--important scale-up-10" faClass="fa-ellipsis-v "/>
 	</div>
 
@@ -85,5 +121,12 @@
 	font-size: .8rem;
 	margin-right: .4rem;
 	font-style: italic;
+}
+.group__checkbox{
+	/* outline: 1px solid red; */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 0 1rem 0 0;
 }
 </style>

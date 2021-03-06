@@ -1,6 +1,8 @@
 <script lang="ts">
+	import { createEventDispatcher } from "svelte";
 	import Icon from "./Icon.svelte";
-	export let name: string;
+	export let isInSelectionMode: boolean;
+	const dispatch = createEventDispatcher();
 </script>
 
 <header class="app-header">
@@ -10,6 +12,12 @@
 		<Icon extraClass="icon--image position-absolute r-2" faClass="fa-search"/>
 	</div>
 </header>
+
+<div class={`app-selection-controls ${isInSelectionMode ? 'visible' : 'hidden'}`}>
+	<button on:click={()=>dispatch("selectionControlAction", "select-all")}>Select All</button>
+	<button on:click={()=>dispatch("selectionControlAction", "select-none")}>Deselect All</button>
+	<button on:click={()=>dispatch("selectionControlAction", "cancel")}>Cancel</button>
+</div>
 
 <style>
 .app-header{
@@ -60,5 +68,22 @@ input{
 	letter-spacing: .1px;
   	color: #aaa;
 }
-
+.app-selection-controls{
+	display: flex;
+	justify-content: space-between;
+	padding: .5rem 1rem;
+}
+.app-selection-controls button{
+	padding: .2rem .5rem;
+	font-size: .8rem;
+}
+@media screen and (min-width: 640px){
+	.app-selection-controls{
+		padding: 0rem 2rem;
+		justify-content: flex-start;
+	}
+	.app-selection-controls button{
+		margin-right: .5rem;
+	}
+}
 </style>
