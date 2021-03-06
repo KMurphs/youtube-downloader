@@ -15,7 +15,7 @@
 
 <style>
 	.group{
-		margin-left: 2.5rem;
+		margin-left: .5rem;
 		position: relative;
 		padding-top: 1rem;
 		padding-left: 1rem;
@@ -51,9 +51,28 @@
 		display: flex;
 		flex-direction: column;
 		position: absolute;
-		left: -2.5rem;
-		line-height: 1rem;
-		top: 0;
+		left: -.5rem;
+		top: -1rem;
+		background: #F5F6FA;
+		font-size: .8rem;	
+		padding: .2rem 0;
+	}
+	.group__date span{
+		line-height: 1.1;
+	}
+	@media screen and (min-width: 640px){
+		.group__date {
+			left: -2.5rem;
+			top: 0;
+			background: transparent;
+			font-size: 1rem;
+		}
+		.group__date span{
+			line-height: 1.5;
+		}
+		.group{
+			margin-left: 2.5rem;
+		}
 	}
 	.group__day{
 		color: #333;

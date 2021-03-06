@@ -28,7 +28,15 @@
 
 .registry{
     margin-top: 1rem;
-    padding-top: 3rem;
+	padding: 1rem;
+	padding-right: 0;
+    /* padding-top: 3rem; */
     overflow-y: auto;
+	flex: 1 1 auto;
+}
+@media screen and (min-width: 640px){
+	.registry {
+		padding: 2rem;
+	}
 }
 </style>

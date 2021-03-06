@@ -1,10 +1,13 @@
 <script lang="ts">
 	// export let name: string;
+	import { onMount } from "svelte";
 	import Nav from "./Nav.svelte";
 	import Header from "./Header.svelte";
 	import Registry from "./Registry.svelte";
 	import Tmp from "./Tmp.svelte";
 	import Modal from "./Modal.svelte";
+	import defineVH from "./vh";
+	onMount(defineVH);
 
 	let isModalShowing = false;
 </script>
@@ -24,9 +27,11 @@
 
 .app-container{
 	width: 100%;
-	height: 100%;
+	/* height: 100%; */
+	height: 100vh; /* Fallback for browsers that do not support Custom Properties */
+	height: calc(var(--vh, 1vh) * 100);
 	display: flex;
-	padding: 2rem;
+	/* padding: 2rem; */
 	flex-direction: column;
 	justify-content: flex-start;
 	align-items: stretch;
@@ -39,7 +44,7 @@
 @media screen and (min-width: 1441px){
 	.app-container {
 		width: 1396px;
-		height: calc(100% - 38px);
+		/* height: calc(100% - 38px); */
 	}
 }
 

@@ -44,8 +44,8 @@
 <style>
 .app-nav{
 	position: absolute;
-	right: 2rem;
-	bottom: 2rem;
+	right: 1rem;
+	bottom: 1rem;
 }
 
 
@@ -74,8 +74,10 @@
 	position: fixed;
 	/* margin: 50px auto; */
 	right: 2rem;
+	right: 1rem;
 	/* top: 50%; */
 	bottom: 2rem;
+	bottom: 1rem;
 	display: inline-block;
 	-webkit-transform: rotate(0deg) scale(.5);
 	-moz-transform: rotate(0deg) scale(.5);
@@ -230,4 +232,19 @@
 	transform: translate3d(var(--to-x), var(--to-y), 0);
 }
 
+
+
+
+
+@media screen and (min-width: 640px){
+	.app-nav{
+		right: 2rem;
+		bottom: 2rem;
+	}
+	.hamburger-menu,
+	.nav__item{
+		right: 2rem;
+		bottom: 2rem;
+	}
+}
 </style>

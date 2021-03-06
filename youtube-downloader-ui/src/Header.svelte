@@ -12,7 +12,15 @@
 </header>
 
 <style>
-
+.app-header{
+	flex: 0 0 auto;
+	padding: .5rem 1rem;
+}
+@media screen and (min-width: 640px){
+	.app-header {
+		padding: 2rem;
+	}
+}
 .app-header__search-input{
 	display: flex;
 	align-items: center;
