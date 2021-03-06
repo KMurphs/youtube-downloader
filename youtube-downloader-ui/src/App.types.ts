@@ -7,4 +7,4 @@ export type TItem = {
     keywords: string,
 }
 export type TItemExtended = TItem & {date: number, month: string, year: number}
-export type TRegisterData = {[key: string]: TItemExtended[]}
+export type TRegisterData = {[key: string]: (TItemExtended & {selected: boolean})[]}

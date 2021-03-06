@@ -5,36 +5,35 @@
 </script> -->
 
 <script lang="ts">
-	import Icon from "./Icon.svelte";
-	import { longpress } from './longpress';
-	let url: string|null = null;
-
-	export let data: TItemExtended;
-	const {id, title, author, keywords} = data;
-	$: itemId = `item-checkbox-${id}`;
-
-
-
 	import { createEventDispatcher } from "svelte";
+	import Icon from "./Icon.svelte";
 	import type { TItemExtended } from "./App.types";
+	import { longpress } from './longpress';
+
 	export let isInSelectionMode = false;
-	let isSelected = false;
+	export let data: TItemExtended & {selected: boolean};
+
+
+	let url: string|null = null;
+	// $: {id, title, author, keywords, selected} = data;
+	
 	
 	const dispatch = createEventDispatcher();
-	const hanldeSelectionChange = ()=>{
-		isSelected = !isSelected;
-		dispatch("selectionChange", {id: id, state: isSelected});
-	}
+	const handleSelectionChange = ()=>dispatch("selectionChange", {id: data.id, state: data.selected});
+
+	
+	$: itemId = `item-checkbox-${data.id}`;
+	$: console.log(data.selected);
 </script>
 
 
 
 
 
-<section class="group" use:longpress on:longpress={e => (isInSelectionMode = true) && hanldeSelectionChange()}>
+<section class="group" use:longpress on:longpress={handleSelectionChange}>
 	{#if isInSelectionMode}
 	<label for={itemId} class="group__checkbox">
-		<input type="checkbox" id={itemId} checked={isSelected} on:change={hanldeSelectionChange}>
+		<input type="checkbox" id={itemId} checked={data.selected} on:change={handleSelectionChange}>
 	</label>
 	{/if}
 	<a href="#1" class={`reset group__thumbnail ${url ? '' : 'group__thumbnail--placeholder'}`}>
@@ -45,10 +44,10 @@
 		{/if}
 	</a>
 	<div class="group__title-block">
-		<h1 class="group__title">{title}</h1>
-		<h2 class="group__subtitle">{author}</h2>
+		<h1 class="group__title">{data.title}</h1>
+		<h2 class="group__subtitle">{data.author}</h2>
 		<div class="group__keywords">
-			{#each keywords.split(", ") as keyword}
+			{#each data.keywords.split(", ") as keyword}
 			<span class="group__keyword">{keyword}</span>
 			{/each}
 		</div>

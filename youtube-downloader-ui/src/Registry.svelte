@@ -2,32 +2,33 @@
 	let url: string|null = null;
 	import RegistryGroup from "./RegistryGroup.svelte";
 	import RegistryItem from "./RegistryItem.svelte";
+	import groupByDate, { dateFromGroup } from "./Registry.utils";
 
 
 	export let isInSelectionMode = false;
-	export let data: TRegisterData = {};
-	const keys = Object.keys(data).sort((a,b)=>data[a][0].created - data[b][0].created);
-	const getGroupData = (data: TItemExtended): [number, string, number] => ([data.date, data.month, data.year])
+	export let data: (TItem & {selected: boolean})[] = [];
+	$: groupedData = groupByDate(data);
+	$: keys = Object.keys(groupedData).sort((a,b)=>groupedData[a][0].created - groupedData[b][0].created);
 
 
 	import { createEventDispatcher } from 'svelte';
-	import type { TItemExtended, TRegisterData } from "./App.types";
+	import type { TItem } from "./App.types";
 
 	const dispatch = createEventDispatcher();
 	const forward = ({type, detail}) => dispatch(type, detail);
 </script>
 
-<script context="module">
+<!-- <script context="module">
     let counter = 0
 	const getId = ()=>counter++;
 	const itemId = `item-checkbox-${getId()}`;
-</script>
+</script> -->
 
 <main class="registry">
 {#each keys as key (key)}
-<RegistryGroup data={getGroupData(data[key][0])}>
-	{#each data[key] as item (item.id)}
-	<RegistryItem bind:data={item} bind:isInSelectionMode on:selectionChange={forward}/>
+<RegistryGroup data={dateFromGroup(groupedData[key])}>
+	{#each groupedData[key] as item (item.id)}
+	<RegistryItem data={item} {isInSelectionMode} on:selectionChange={forward}/>
 	{/each}
 </RegistryGroup>
 {/each}
