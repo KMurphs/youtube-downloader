@@ -19,6 +19,7 @@
 		position: relative;
 		padding-top: 1rem;
 		padding-left: 1rem;
+		padding-bottom: 3rem;
 	}
 	.group::before{
 		position: absolute;

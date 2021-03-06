@@ -3,7 +3,7 @@
 	const dispatch = createEventDispatcher();
 	export let isOpen: boolean = false;
 	import Icon from "./Icon.svelte";
-	import positionMenuItem from "./circular.menu.helpers";
+	// import positionMenuItem from "./circular.menu.helpers";
 	// onMount(()=>setTimeout(positionMenuItem, 1000));
 </script>
 

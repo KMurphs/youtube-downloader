@@ -5,41 +5,59 @@
 
 <section class="group">
 	
-	<!-- Video title, author, thumbnail and link -->
-	<header class="group__header">
-		<a href="#1" class={`reset group__thumbnail ${url ? '' : 'group__thumbnail--placeholder'}`}>
-			{#if url}
-				<img  class="" src="" alt="">
-			{:else}
-				<i class="fas fa-video-slash"></i>
-			{/if}
-		</a>
-		<div class="group__title-block">
-			<h1 class="group__title">title</h1>
-			<h2 class="group__subtitle">Author</h2>
-		</div>
-	</header>
-
-
-	<!-- More Details about current video length, keywords -->
-	<input type="checkbox" id="toggle-details">
-	<footer class="group__details">
+	<a href="#1" class={`reset group__thumbnail ${url ? '' : 'group__thumbnail--placeholder'}`}>
+		{#if url}
+			<img  class="" src="" alt="">
+		{:else}
+			<i class="fas fa-video-slash"></i>
+		{/if}
+	</a>
+	<div class="group__title-block">
+		<h1 class="group__title">title</h1>
+		<h2 class="group__subtitle">Author</h2>
 		<div class="group__keywords"><span class="group__keyword">keyword</span><span class="group__keyword">keyword</span><span class="group__keyword">keyword</span><span class="group__keyword">keyword</span><span class="group__keyword">keyword</span><span class="group__keyword">keyword</span></div>
-		<div class="group__misc-details">
-			<span class="">214 <span class="group__text--muted">sec</span></span>
-			<span class="group__detail-label group__text--muted">Downloaded at:</span>
-			<span class="">2021-02-13 15:14:23</span>
-		</div>
-	</footer>
-	
-
-	<!-- Controls for the ui group/component -->
-	<aside class="group__options">
-		<label for="toggle-details"><Icon extraClass="icon--option" faClass="fa-angle-up"/></label>
-		<Icon extraClass="icon--option" faClass="fa-pen"/>
-		<!-- <Icon extraClass="icon--option" faClass="fa-search"/> -->
-	</aside>
-
+	</div>
+	<div class="group__more">
+		<Icon extraClass="icon--option no-box-shadow--important hover:bg-dark-5--important scale-up-10" faClass="fa-ellipsis-v "/>
+	</div>
 
 </section>
 
+<style>
+.group{
+	display: flex;
+	align-items: stretch;
+	padding: 1rem 1rem;
+	transition: background-color .3s ease-in-out, border-color .3s ease-in-out;
+	border-left: 2px solid transparent;
+}
+.group__more{
+	margin-left: auto;
+	align-self: center;
+}
+.group__thumbnail{
+	/* height: 100%; */
+	min-height: 4rem;
+	width: 6rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: 1px solid #bbb;
+	margin-right: 1rem;
+}
+.group:hover{
+	background-color: rgba(0,0,0,0.03);
+	border-color: rgba(0,0,0,0.5)
+}
+.group__title{
+	font-size: 1.2rem;
+}
+.group__author{
+	font-size: 1rem;
+}
+.group__keyword{
+	font-size: .8rem;
+	margin-right: .4rem;
+	font-style: italic;
+}
+</style>
