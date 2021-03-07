@@ -23,7 +23,7 @@
 
 	
 	$: itemId = `item-checkbox-${data.id}`;
-	$: console.log(data.selected);
+	// $: console.log(data.selected);
 </script>
 
 
@@ -52,7 +52,7 @@
 			{/each}
 		</div>
 	</div>
-	<div class="group__more has-menu">
+	<div class="group__more has-menu" data-id-menu-owner={data.id} data-id-menu-owner2={data.id}>
 		<Icon extraClass="icon--option no-box-shadow--important hover:bg-dark-5--important scale-up-10" faClass="fa-ellipsis-v "/>
 	</div>
 

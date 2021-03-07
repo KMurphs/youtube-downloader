@@ -8,11 +8,11 @@
 	import Modal from "./Modal.svelte";
 	import defineVH from "./vh";
 	import withMenu from "./context-menu";
-	import menuStore from "./context-menu.store";
+	import getMenuStore from "./context-menu.store";
 	import _data from "./data";
-import type { TItem } from "./App.types";
+	import type { TItem } from "./App.types";
 	onMount(defineVH);
-	onMount(()=>withMenu(document.querySelector(".app-container"), menuStore));
+	
 	
 
 	let isModalShowing = false;
@@ -26,6 +26,7 @@ import type { TItem } from "./App.types";
 	if(!data) loadData();
 
 	let isInSelectionMode = false;
+	const handleSelectionChangeFromMenu = (itemId)=>handleSelectionChange({itemId, state: data.filter(({id}) => id === itemId)[0].selected})
 	const handleSelectionChange = ({itemId, state})=>{
 		isInSelectionMode = true;
 		data = data.map(({selected, id, ...rest}) => (id === itemId ? {selected: !state, id, ...rest} : {selected, id, ...rest}));
@@ -35,6 +36,7 @@ import type { TItem } from "./App.types";
 		(detail === "select-none" || detail === "cancel") && (data = data.map(({selected, ...rest}) => ({selected: false, ...rest})));
 		(detail === "cancel") && (isInSelectionMode = false);
 	}
+	onMount(()=>withMenu(document.querySelector(".app-container"), getMenuStore("id-menu-owner", handleSelectionChangeFromMenu)));
 </script>
 
 <Modal visible={isModalShowing} on:closeModal={()=>(isModalShowing = false)}>

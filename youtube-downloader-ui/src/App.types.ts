@@ -1,5 +1,5 @@
 export type TItem = {
-    id: string|number, 
+    id: string, 
     title: string, 
     author: string, 
     thumbnail: string, 
