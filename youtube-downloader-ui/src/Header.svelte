@@ -2,6 +2,9 @@
 	import { createEventDispatcher } from "svelte";
 	import Icon from "./Icon.svelte";
 	export let isInSelectionMode: boolean;
+	let show = false
+	$: isInSelectionMode && setTimeout(()=>(show = true), 200);
+	$: !isInSelectionMode && (show = false);
 	const dispatch = createEventDispatcher();
 </script>
 
@@ -13,10 +16,12 @@
 	</div>
 </header>
 
-<div class={`app-selection-controls ${isInSelectionMode ? 'visible' : 'hidden'}`}>
-	<button on:click={()=>dispatch("selectionControlAction", "select-all")}>Select All</button>
-	<button on:click={()=>dispatch("selectionControlAction", "select-none")}>Deselect All</button>
-	<button on:click={()=>dispatch("selectionControlAction", "cancel")}>Cancel</button>
+<div class={`app-selection-controls ${isInSelectionMode ? 'visible' : ''} ${show ? 'app-selection-controls--show' : ''}`}>
+	<div class={`app-selection-controls__container`}>
+		<button on:click={()=>dispatch("selectionControlAction", "select-all")}>Select All</button>
+		<button on:click={()=>dispatch("selectionControlAction", "select-none")}>Deselect All</button>
+		<button on:click={()=>dispatch("selectionControlAction", "cancel")}>Cancel</button>
+	</div>
 </div>
 
 <style>
@@ -72,6 +77,37 @@ input{
 	display: flex;
 	justify-content: space-between;
 	padding: .5rem 1rem;
+	display: none;
+	visibility: hidden;
+	-webkit-backface-visibility: hidden;
+	-moz-backface-visibility: hidden;
+	backface-visibility: hidden;
+}
+.app-selection-controls__container{
+	-webkit-transform: translateX(20%);
+	-moz-transform: translateX(20%);
+	-ms-transform: translateX(20%);
+	transform: translateX(20%);
+	opacity: 0;
+	-webkit-transition: all 0.3s cubic-bezier(0.25, 0.5, 0.5, 0.9);
+	-moz-transition: all 0.3s cubic-bezier(0.25, 0.5, 0.5, 0.9);
+	transition: all 0.3s cubic-bezier(0.25, 0.5, 0.5, 0.9);
+}
+.app-selection-controls.visible{
+	display: flex;
+}
+.app-selection-controls.app-selection-controls--show{
+	visibility: visible;
+	-webkit-backface-visibility: visible;
+	-moz-backface-visibility: visible;
+	backface-visibility: visible;
+}
+.app-selection-controls.app-selection-controls--show .app-selection-controls__container{
+	-webkit-transform: translateX(0);
+	-moz-transform: translateX(0);
+	-ms-transform: translateX(0);
+	transform: translateX(0);
+	opacity: 1;
 }
 .app-selection-controls button{
 	padding: .2rem .5rem;

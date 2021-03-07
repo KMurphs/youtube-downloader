@@ -19,7 +19,7 @@
 	
 	
 	const dispatch = createEventDispatcher();
-	const handleSelectionChange = ()=>dispatch("selectionChange", {id: data.id, state: data.selected});
+	const handleSelectionChange = ()=>dispatch("selectionChange", {itemId: data.id, state: data.selected});
 
 	
 	$: itemId = `item-checkbox-${data.id}`;
@@ -52,7 +52,7 @@
 			{/each}
 		</div>
 	</div>
-	<div class="group__more has-menu" data-id-menu-owner={data.id} data-id-menu-owner2={data.id}>
+	<div class="group__more has-menu" data-id-menu-owner={data.id}>
 		<Icon extraClass="icon--option no-box-shadow--important hover:bg-dark-5--important scale-up-10" faClass="fa-ellipsis-v "/>
 	</div>
 
