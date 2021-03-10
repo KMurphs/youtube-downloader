@@ -3,7 +3,7 @@ services:
   frontend_app:
     image: nginx
     volumes:
-      - .:/usr/share/nginx/html
+      - ./ui:/usr/share/nginx/html
     ports:
       - "80"
 
@@ -11,7 +11,7 @@ services:
   elasticsearch_app:
     image: nginx
     volumes:
-      - .:/usr/share/nginx/html
+      - ./elasticsearch:/usr/share/nginx/html
     ports:
       - "80"
       
@@ -19,6 +19,6 @@ services:
   backend_app:
     image: nginx
     volumes:
-      - .:/usr/share/nginx/html
+      - ./api:/usr/share/nginx/html
     ports:
       - "80"
