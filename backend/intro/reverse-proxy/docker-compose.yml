@@ -1,14 +1,25 @@
 version: '2'
 services:
   proxy:
-    build: ./
+    # build: ./
+    image: nginx:latest
+    container_name: reverse-proxy
+    environment:
+      - service.role=reverse-proxy
     networks:
       - youtube_downloader
       # - example2
     ports:
       - 80:80
       - 443:443
+    volumes:
+      - ./assets:/var/www/html/assets
+      - ./ssl:/etc/ssl/certs/nginx
+      - ./includes:/etc/nginx/includes
+      - ./conf.d:/etc/nginx/conf.d
 
+
+    
 networks:
   youtube_downloader:
     external:
