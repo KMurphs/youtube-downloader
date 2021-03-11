@@ -1,5 +1,12 @@
 version: '2'
 services:
+  # frontend_app:
+  #   image: nginx
+  #   volumes:
+  #     - ./ui:/usr/share/nginx/html
+  #   ports:
+  #     - "80"
+
   frontend_app:
     image: nginx
     volumes:
@@ -34,11 +41,8 @@ services:
     build: ./api/
     environment:
       - APP_PORT=8000
-      # - FLASK_APP=__init__.py
-      # - FLASK_DEBUG=1
-      # - PYTHONPATH=/youtube_downloader
       - GUNICORN_CMD_ARGS=--workers=4 --log-level=debug --bind=0.0.0.0:8000
-    volumes:
-      - ./api/app:/youtube_downloader/app/
+    # volumes:
+    #   - ./api/app:/youtube_downloader/app/
     ports:
       - 4444:8000
