@@ -1,0 +1,6 @@
+{
+    "python.pythonPath": "backend\\intro\\youtube_downloader\\api\\venv\\Scripts\\python.exe",
+    //https://github.com/microsoft/pylance-release/issues/236#issuecomment-759828693
+    // "python.analysis.extraPaths": ["backend\\intro\\youtube_downloader\\api\\app"]
+    "python.analysis.extraPaths": ["backend\\intro\\youtube_downloader\\api"]
+}

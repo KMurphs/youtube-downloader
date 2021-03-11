@@ -9,29 +9,36 @@ services:
 
   # https://stackoverflow.com/a/65213529/9034699
   elasticsearch_app:
-    image: docker.elastic.co/elasticsearch/elasticsearch:6.4.1
+    build: ./elasticsearch/
+    # image: docker.elastic.co/elasticsearch/elasticsearch:6.4.1
     # image: docker.elastic.co/elasticsearch/elasticsearch:7.11.1
     # container_name: elasticsearch
     environment:
       - cluster.name=docker-cluster
       - bootstrap.memory_lock=true
+      # - output.mount=/usr/share/elasticsearch/data/backups
       # - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-    ports:
-      - "80"
     ulimits:
       memlock:
         soft: -1
         hard: -1
     volumes:
-      - ./elasticsearch/data:/usr/share/elasticsearch/data
+      - ./elasticsearch/iodata:/usr/share/elasticsearch/iodata
     ports:
       - 9200:9200
 
 
 
   backend_app:
-    image: nginx
+    # image: nginx
+    build: ./api/
+    environment:
+      - APP_PORT=8000
+      # - FLASK_APP=__init__.py
+      # - FLASK_DEBUG=1
+      # - PYTHONPATH=/youtube_downloader
+      - GUNICORN_CMD_ARGS=--workers=4 --log-level=debug --bind=0.0.0.0:8000
     volumes:
-      - ./api:/usr/share/nginx/html
+      - ./api/app:/youtube_downloader/app/
     ports:
-      - "80"
+      - 4444:8000
