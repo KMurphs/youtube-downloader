@@ -1,6 +1,7 @@
 from datetime import datetime
 import json
 import logging
+import os
 from typing import Dict
 from functools import reduce
 
@@ -39,7 +40,7 @@ def process_video(video: Dict, is_new=False):
 
 
 def download_videos():
-  it = em.get_results_iterator(query = {"match_all": {}})
+  it = em.get_results_iterator(query = { "bool": {"filter": [{ "term":  { "status": "0" } }] }})
   for doc in it:
     
     id = doc.get('_id')
@@ -48,13 +49,19 @@ def download_videos():
     streams = video.get('streams')
     video_path = video.get('video_filepath')
 
+    logging.info(f"Processing video '{id}': {url}")
     yt = YouTube(url)
     ys = get_download_stream(yt, streams)
-    
+    logging.info(f"Downloading stream '{ys[1]}' as {video_path}")
     try: 
-      ys.download(video_path)
+      ys[0].download(os.path.split(video_path)[0])
       video['status'] = 1
+      ts = datetime.timestamp(datetime.now())
+      ts_str = datetime.fromtimestamp(ts).strftime("%Y-%m-%d %H:%M:%S")
+      video['completed_at'] = ts
+      video['completed_at_str'] = ts_str
       em.update_video(id, video)
+      logging.info(f"Downloaded successfully: {ts_str}")
     except Exception as e: pass
 
 
@@ -118,7 +125,7 @@ def decorate_remote_obj(src: Dict, video: Dict, is_new=False):
   src['streams'] = get_video_streams(src)
   src['thumbnail_filename'] = url_to_filename(src['watch_url'], "png")
   src['thumbnail_filepath'] = build_absolute_path(src['thumbnail_filename'], relative_path_parts=["..", "thumbnails"])
-  src['video_filename'] = url_to_filename(src['watch_url'], "mp4")
+  src['video_filename'] = f"{src['title']}.mp4"
   src['video_filepath'] = build_absolute_path(src['video_filename'], relative_path_parts=["..", "videos"])
   
   if is_new:
@@ -164,7 +171,7 @@ def get_video_streams(src: Dict):
   streams = __get_video_streams(src, f"{src.get('user_resolution')}p") + __get_video_streams(src)
   return dict(streams + [("default", streams[0][1])])
 def get_download_stream(remote_video: YouTube, streams: Dict): 
-  for stream in ['default' + streams.keys()]:
-    try: return remote_video.streams.get_by_itag(streams.get(stream))
+  for stream in ['default'] + list(streams.keys()):
+    try: return (remote_video.streams.get_by_itag(streams.get(stream)), streams.get(stream))
     except Exception as e: pass
-  return None
+  return (None, None)

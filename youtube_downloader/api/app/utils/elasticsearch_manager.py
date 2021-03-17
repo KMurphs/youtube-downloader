@@ -61,6 +61,7 @@ def get_results_iterator(query: Dict = {"match_all": {}}, size = 1):
 
 def ResultsIterator(url: str = "localhost:9200", index = "videos", query: Dict = {"match_all": {}}, size = 1):
     
+    logging.info(f"Building Elasticsearch Iterator at '{url}' for index '{index}' and query '{query}'")
     
     client = Elasticsearch(url)
     start = 0
