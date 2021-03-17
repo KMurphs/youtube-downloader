@@ -1,0 +1,1 @@
+curl -XPOST "localhost:5000/videos/new/bulk" -H "Content-Type: application/json" -d"[{\"url\": \"https://www.youtube.com/watch?v=7IS7gigunyI\", \"resolution\":720, \"tags\":[\"nginx\"]},{\"url\": \"https://www.youtube.com/watch?v=7IS7gigunyI\", \"resolution\":720, \"tags\":[\"nginx\"]}]"

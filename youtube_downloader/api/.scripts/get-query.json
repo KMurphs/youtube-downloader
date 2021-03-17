@@ -1,0 +1,6 @@
+{
+    "query": { "bool": {"filter": [{ "term":  { "status": "0" }}]}	}
+}
+  
+  
+  

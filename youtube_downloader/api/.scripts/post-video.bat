@@ -1,1 +1,1 @@
-curl -XPOST "localhost:5000/videos/new" -H "Content-Type: application/json" -d"{\"video_link\": \"https://www.youtube.com/watch?v=7IS7gigunyI\", \"video_resolution\":1440}"
+curl -XPOST "localhost:5000/videos/new" -H "Content-Type: application/json" -d"{\"url\": \"https://www.youtube.com/watch?v=7IS7gigunyI\", \"resolution\":720, \"tags\":[\"nginx\"]}"
