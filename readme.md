@@ -72,3 +72,5 @@ https://discuss.elastic.co/t/iterating-over-all-data/13610/3
 https://www.elastic.co/guide/en/elasticsearch/reference/current/paginate-search-results.html
 https://github.com/microsoft/pylance-release/issues/236#issuecomment-759828693
 https://chrisyeh96.github.io/2017/08/08/definitive-guide-python-imports.html
+https://blog.theodo.com/2020/05/debug-flask-vscode/
+https://github.com/PyBackendBoilerplate/micro-service
