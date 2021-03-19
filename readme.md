@@ -10,6 +10,7 @@ docker cp relaxed_shaw:/etc/nginx/ .\backend\intro\binds\
 docker exec -it <container name> <command>
 docker exec -it reverse_proxy_1 nginx -s reload
 
+docker container logs -f --details youtube_downloader_backend_app_1
 
 ### openssl
 C:\Program Files\Git\usr\bin\openssl.exe

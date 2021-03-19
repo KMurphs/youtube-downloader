@@ -98,7 +98,7 @@ def get_uri(video_link):
 
 def to_VideoRecord(es_results):
   logging.debug('Transforming ' + json.dumps(es_results) + ' to video record')
-  res = {"__es": es_results} | {"total": es_results["hits"]["total"]} | { "video": None } | { "videos": None }
+  res = {"__es": es_results} | {"total": len(es_results["hits"]["hits"])} | { "video": None } | { "videos": None }
   if type(es_results) is not dict or "hits" not in es_results.keys() or "total" not in es_results["hits"].keys(): 
     return res | {"message": "Could not query elasticsearch"}
   if res["total"] == 0: return res
