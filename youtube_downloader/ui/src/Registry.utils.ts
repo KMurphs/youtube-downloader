@@ -13,7 +13,7 @@ export const keyToDateMonthYear = (key) => {
 }
 const groupByDate = (data: (TItem & {selected: boolean})[]): TRegisterData => {
     return data.reduce((acc, item)=>{
-        const {date, month, year} = dateMonthYearFromTimeStamp(item.created)
+        const {date, month, year} = dateMonthYearFromTimeStamp(item.added_at)
         const key = dateMonthYearToKey({date, month, year});
         if(!(key in acc)) acc[key] = [];
         acc[key].push({...item, date, month, year});

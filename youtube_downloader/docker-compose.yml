@@ -45,7 +45,9 @@ services:
       - GUNICORN_CMD_ARGS=--workers=4 --log-level=debug --bind=0.0.0.0:8000
       - ELASTICSEARCH_URL=http://youtube_downloader_elasticsearch_app_1
       - ELASTICSEARCH_PORT=9200
-    # volumes:
-    #   - ./api/app:/youtube_downloader/app/
+    volumes:
+      - ./api/thumbnails:/youtube_downloader/thumbnails/
+      - ./api/videos:/youtube_downloader/videos/
+      # - ./api/videos:/youtube_downloader/app/
     ports:
       - 4444:8000

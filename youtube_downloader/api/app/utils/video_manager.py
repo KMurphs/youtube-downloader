@@ -58,7 +58,7 @@ def download_videos():
       video['status'] = 1
       ts = datetime.timestamp(datetime.now())
       ts_str = datetime.fromtimestamp(ts).strftime("%Y-%m-%d %H:%M:%S")
-      video['completed_at'] = ts
+      video['completed_at'] = int(ts*1000)
       video['completed_at_str'] = ts_str
       em.update_video(id, video)
       logging.info(f"Downloaded successfully: {ts_str}")
@@ -98,13 +98,13 @@ def get_uri(video_link):
 
 def to_VideoRecord(es_results):
   logging.debug('Transforming ' + json.dumps(es_results) + ' to video record')
-  res = {"__es": es_results} | {"total": len(es_results["hits"]["hits"])} | { "video": None } | { "videos": None }
+  res = {"__es": es_results} | {"total": len(es_results["hits"]["hits"])} | { "video": {} } | { "videos": [] }
   if type(es_results) is not dict or "hits" not in es_results.keys() or "total" not in es_results["hits"].keys(): 
     return res | {"message": "Could not query elasticsearch"}
   if res["total"] == 0: return res
   if res["total"] == 1: 
-    return res | { "videos": None } | {"video":  [{"id": r.get("_id")} | r.get("_source") for r in es_results["hits"]["hits"]][0]} 
-  return   res | { "video" : None } | {"videos": [{"id": r.get("_id")} | r.get("_source") for r in es_results["hits"]["hits"]]   }
+    return res | { "videos": [] } | {"video":  [{"id": r.get("_id")} | r.get("_source") for r in es_results["hits"]["hits"]][0]} 
+  return   res | { "video" : {} } | {"videos": [{"id": r.get("_id")} | r.get("_source") for r in es_results["hits"]["hits"]]   }
 
 
 
@@ -131,7 +131,7 @@ def decorate_remote_obj(src: Dict, video: Dict, is_new=False):
   if is_new:
     ts = datetime.timestamp(datetime.now())
     ts_str = datetime.fromtimestamp(ts).strftime("%Y-%m-%d %H:%M:%S")
-    src['added_at'] = ts
+    src['added_at'] = int(ts*1000)
     src['added_at_str'] = ts_str
     src['completed_at'] = None
     src['completed_at_str'] = None

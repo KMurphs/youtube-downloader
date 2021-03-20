@@ -8,7 +8,7 @@
 	export let isInSelectionMode = false;
 	export let data: (TItem & {selected: boolean})[] = [];
 	$: groupedData = groupByDate(data);
-	$: keys = Object.keys(groupedData).sort((a,b)=>groupedData[a][0].created - groupedData[b][0].created);
+	$: keys = Object.keys(groupedData).sort((a,b)=>groupedData[a][0].added_at - groupedData[b][0].added_at);
 
 
 	import { createEventDispatcher } from 'svelte';
@@ -25,13 +25,23 @@
 </script> -->
 
 <main class="registry">
-{#each keys as key (key)}
-<RegistryGroup data={dateFromGroup(groupedData[key])}>
-	{#each groupedData[key] as item (item.id)}
-	<RegistryItem data={item} {isInSelectionMode} on:selectionChange={forward}/>
+
+{#await data}
+	<p>...waiting</p>
+{:then data}
+	{#each keys as key (key)}
+	<RegistryGroup data={dateFromGroup(groupedData[key])}>
+		{#each groupedData[key] as item (item.id)}
+		<RegistryItem data={item} {isInSelectionMode} on:selectionChange={forward}/>
+		{/each}
+	</RegistryGroup>
 	{/each}
-</RegistryGroup>
-{/each}
+{:catch error}
+	<p>An error occurred!</p>
+{/await}
+
+
+
 
 </main>
 

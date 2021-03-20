@@ -13,8 +13,8 @@
 	export let isInSelectionMode = false;
 	export let data: TItemExtended & {selected: boolean};
 
-
-	let url: string|null = null;
+	const url = `http://youtube.downloader.local/thumbnails/${data.thumbnail_filename}`
+	// let url: string|null = null;
 	// $: {id, title, author, keywords, selected} = data;
 	
 	
@@ -38,7 +38,7 @@
 	{/if}
 	<a href="#1" class={`reset group__thumbnail ${url ? '' : 'group__thumbnail--placeholder'}`}>
 		{#if url}
-			<img  class="" src="" alt="">
+			<img  class="" src={url} alt="">
 		{:else}
 			<i class="fas fa-video-slash"></i>
 		{/if}
@@ -47,7 +47,8 @@
 		<h1 class="group__title">{data.title}</h1>
 		<h2 class="group__subtitle">{data.author}</h2>
 		<div class="group__keywords">
-			{#each data.keywords.split(", ") as keyword}
+			{#each data.keywords as keyword}
+			<!-- {#each data.keywords.split(", ") as keyword} -->
 			<span class="group__keyword">{keyword}</span>
 			{/each}
 		</div>
@@ -80,6 +81,10 @@
 	align-items: center;
 	border: 1px solid #bbb;
 	margin-right: .5rem;
+}
+.group__thumbnail img{
+	height: auto;
+	width: 100%;
 }
 .group:hover{
 	background-color: rgba(0,0,0,0.03);

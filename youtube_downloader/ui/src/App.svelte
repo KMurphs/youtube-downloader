@@ -17,13 +17,19 @@
 
 	let isModalShowing = false;
 
-	let data: (TItem & {selected: boolean})[] | null = null;
-	
-	const loadData = ()=> {
-		console.log("Loading data");
-		data = _data.map(item => ({...item, selected: false}))
-	};
-	if(!data) loadData();
+	let data: (TItem & {selected: boolean})[] = [];
+
+    onMount(async () => {
+        const response = await fetch('http://youtube.downloader.local/api/videos/');
+        // const response = await fetch('https://youtube.downloader.local/api/videos/');
+        const {video, videos} = await response.json();
+		data = ([video].concat(videos)).map((item) => ({...item, selected: false}))
+    })
+	// const loadData = ()=> {
+	// 	console.log("Loading data");
+	// 	data = _data.map(item => ({...item, selected: false}))
+	// };
+	// if(!data) loadData();
 
 	let isInSelectionMode = false;
 	const handleSelectionChangeFromMenu = (itemId)=>handleSelectionChange({itemId, state: data.filter(({id}) => id === itemId)[0].selected})
