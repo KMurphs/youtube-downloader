@@ -28,14 +28,14 @@ const bubbleToDataAttributeOwner = (node: HTMLElement, dataAttributeName: string
 let id = 0;
 const getId = ()=>id++;
 
-const getMenuStore = (dataIDAttributeName, onSelectItem): TMenuStore => {
+const getMenuStore = (dataIDAttributeName, onSelectItem, onItemOnModal): TMenuStore => {
   
   return { 
     getItems: (node: HTMLElement)=>{
       const id = bubbleToDataAttributeOwner(node, dataIDAttributeName);
       return [
-        { id: getId(), onClick: (evt)=> console.log(1), hasSubMenu: false, leftSlot: "View Item", rightSlot: "<i class='fas fa-eye'></i>" },
-        { id: getId(), onClick: (evt)=> console.log(2), hasSubMenu: false, leftSlot: "Edit Item", rightSlot: "<i class='fas fa-pencil-alt'></i>" },
+        { id: getId(), onClick: (evt)=> onItemOnModal(id, false), hasSubMenu: false, leftSlot: "View Item", rightSlot: "<i class='fas fa-eye'></i>" },
+        { id: getId(), onClick: (evt)=> onItemOnModal(id, true), hasSubMenu: false, leftSlot: "Edit Item", rightSlot: "<i class='fas fa-pencil-alt'></i>" },
         { id: getId(), onClick: (evt)=> onSelectItem(id), hasSubMenu: false, leftSlot: "Select Item", rightSlot: "<i class='fas fa-hand-pointer'></i>" },
       ]
     }

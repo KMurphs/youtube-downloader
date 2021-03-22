@@ -26,8 +26,11 @@
 	top: 0;
 	right: 0;
 	bottom: 0;
-	width: 50%;
-	max-width: 630px;
+	/* width: 50%; */
+	/* width: 30%; */
+	width: 400px;
+	/* max-width: 630px; */
+	max-width: 100%;
 	min-width: 320px;
 	z-index: 2000;
 	visibility: hidden;
@@ -66,7 +69,7 @@
 /* Content styles */
 .modal__content {
 	color: #fff;
-	background: #e74c3c;
+	background: #f2f8ff;
 	position: relative;
 	border-radius: 3px;
 	margin: 0 auto;
@@ -74,6 +77,7 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
+	overflow-y: auto;
 }
 
 
@@ -129,7 +133,7 @@
 .modal.modal--show ~ .modal__overlay {
 	opacity: 1;
 	visibility: visible;
-    background: rgba(180,46,32,0.5);
+    background: #638ab836;
 }
 
 

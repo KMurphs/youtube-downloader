@@ -42,6 +42,7 @@
 	cursor: pointer;
 	width: 2rem;
 	height: 2rem;
+	min-height: 2rem;
 	margin: .25rem;
 }
 .icon.icon--option:hover{

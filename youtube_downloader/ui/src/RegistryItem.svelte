@@ -5,15 +5,18 @@
 </script> -->
 
 <script lang="ts">
+	import { slide } from 'svelte/transition';
 	import { createEventDispatcher } from "svelte";
 	import Icon from "./Icon.svelte";
 	import type { TItemExtended } from "./App.types";
 	import { longpress } from './longpress';
+	import { thumbnailURLFromFileName } from './App.utils';
 
 	export let isInSelectionMode = false;
 	export let data: TItemExtended & {selected: boolean};
 
-	const url = `http://youtube.downloader.local/thumbnails/${data.thumbnail_filename}`
+	
+	const thumbnail_url = thumbnailURLFromFileName(data.thumbnail_filename)
 	// let url: string|null = null;
 	// $: {id, title, author, keywords, selected} = data;
 	
@@ -30,15 +33,15 @@
 
 
 
-<section class="group" use:longpress on:longpress={handleSelectionChange}>
+<section class={`group ${data.completed_at?"group--downloaded":""}`} use:longpress on:longpress={handleSelectionChange} transition:slide>
 	{#if isInSelectionMode}
 	<label for={itemId} class="group__checkbox">
 		<input type="checkbox" id={itemId} checked={data.selected} on:change={handleSelectionChange}>
 	</label>
 	{/if}
-	<a href="#1" class={`reset group__thumbnail ${url ? '' : 'group__thumbnail--placeholder'}`}>
-		{#if url}
-			<img  class="" src={url} alt="">
+	<a href={data.watch_url} rel="noopener noreferrer" target="_blank" class={`reset group__thumbnail ${thumbnail_url ? '' : 'group__thumbnail--placeholder'}`}>
+		{#if thumbnail_url}
+			<img class="" src={thumbnail_url} alt="video-thumbnail">
 		{:else}
 			<i class="fas fa-video-slash"></i>
 		{/if}
@@ -67,6 +70,7 @@
 	padding-right: 0;
 	transition: background-color .3s ease-in-out, border-color .3s ease-in-out;
 	border-left: 2px solid transparent;
+	position: relative;
 }
 .group__more{
 	margin-left: auto;
@@ -125,6 +129,7 @@
 	font-size: .8rem;
 	margin-right: .4rem;
 	font-style: italic;
+	margin-top: 4px;
 }
 .group__checkbox{
 	/* outline: 1px solid red; */
@@ -132,5 +137,18 @@
 	justify-content: center;
 	align-items: center;
 	padding: 0 1rem 0 0;
+}
+.group::after{
+	content: "";
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	width: 3px;
+	background-color: transparent;
+	display: block;
+}
+.group.group--downloaded::after{
+	background-color: #F5F6FA;
 }
 </style>

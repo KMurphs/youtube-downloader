@@ -27,7 +27,7 @@ export type TItem = {
     video_filepath: string,
     added_at: number,
     added_at_str: string,
-    completed_at: string|null,
+    completed_at: number|null,
     completed_at_str: string|null
 }
 export type TItemExtended = TItem & {date: number, month: string, year: number}

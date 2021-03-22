@@ -4,7 +4,8 @@
 	import Nav from "./Nav.svelte";
 	import Header from "./Header.svelte";
 	import Registry from "./Registry.svelte";
-	import Tmp from "./Tmp.svelte";
+	import ViewItem from "./ViewItem.svelte";
+	import AddItemForm from "./AddItemForm.svelte";
 	import Modal from "./Modal.svelte";
 	import defineVH from "./vh";
 	import withMenu from "./context-menu";
@@ -15,7 +16,19 @@
 	
 	
 
-	let isModalShowing = false;
+	// let isModalShowing = false;
+	enum TModalMode {
+		EMPTY = 0,
+		VIEW_ITEM = 1,
+		EDIT_ITEM = 2,
+		ADD_ITEM  = 3
+	}
+	let modalData: ({mode: TModalMode, data: string|null}) = {mode: TModalMode.EMPTY, data:null}
+	const loadItemOnModal = (itemID: string, asEditable: boolean = false) => (modalData = {mode: asEditable ? TModalMode.EDIT_ITEM : TModalMode.VIEW_ITEM, data:itemID})
+	const loadAddFormOnModal = () => (modalData = {mode: TModalMode.ADD_ITEM, data:null})
+	const resetModal = ()=>(modalData = {mode: TModalMode.EMPTY, data:null})
+	loadItemOnModal("_R99T3gBos2KvdxVZmXb")
+	loadAddFormOnModal()
 
 	let data: (TItem & {selected: boolean})[] = [];
 
@@ -42,17 +55,24 @@
 		(detail === "select-none" || detail === "cancel") && (data = data.map(({selected, ...rest}) => ({selected: false, ...rest})));
 		(detail === "cancel") && (isInSelectionMode = false);
 	}
-	onMount(()=>withMenu(document.querySelector(".app-container"), getMenuStore("id-menu-owner", handleSelectionChangeFromMenu)));
+
+	onMount(()=>withMenu(document.querySelector(".app-container"), getMenuStore("id-menu-owner", handleSelectionChangeFromMenu, loadItemOnModal)));
 </script>
 
-<Modal visible={isModalShowing} on:closeModal={()=>(isModalShowing = false)}>
-	<Tmp on:closeModal={()=>(isModalShowing = false)}/>
+<Modal visible={modalData.mode !== TModalMode.EMPTY} on:closeModal={resetModal}>
+	{#if modalData.mode === TModalMode.VIEW_ITEM }
+	<ViewItem on:closeModal={resetModal} data={data.filter(({id}) => id===modalData.data)[0]}/>
+	{:else if modalData.mode === TModalMode.EDIT_ITEM }
+	<ViewItem on:closeModal={resetModal} data={data.filter(({id}) => id===modalData.data)[0]}/>
+	{:else if modalData.mode === TModalMode.ADD_ITEM }
+	<AddItemForm on:closeModal={resetModal} data={data.filter(({id}) => id===modalData.data)[0]}/>
+	{/if}
 </Modal>
 
 <div class="app-container">
 	<Header   {isInSelectionMode}        on:selectionControlAction={handleSelectionControlAction}/>
 	<Registry {isInSelectionMode} {data} on:selectionChange={({detail})=>handleSelectionChange(detail)}/>
-	<Nav on:sidePanelOpen={()=>(isModalShowing=true)}/>
+	<Nav on:sidePanelOpen={()=>{/*(isModalShowing=true)*/}}/>
 </div>
 
 <style>
