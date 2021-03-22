@@ -1,28 +1,36 @@
 <script lang="ts">
+import { createEventDispatcher } from "svelte";
 export let type = "text";
-export let value = "";
+export let value: string|number = "";
 export let label = "Some Label";
+const getId = ()=>Date.now() + "-" + Math.random().toPrecision(16).split(".")[1]
+const id = getId()
+const dispatch = createEventDispatcher();
 </script>
 
 
 <section class="input-with-moving-label" >
 	{#if type === "textarea"}
-	<textarea name="textarea-1"
-			id="textarea-1" 
+	<textarea name={`textarea-${id}`}
+			id={`${id}`}
 			required 
-			value={value} 
-			on:change={()=>{/*evt => setValue((evt.target as HTMLInputElement).value)*/}}
+			bind:value={value} 
+	/>
+	{:else if type === "text"}
+	<input id={`${id}`} 
+			type="text"
+			required 
+			bind:value={value} 
 	/>
 	{:else}
-	<input id="input-1" 
-			type={type} 
+	<input id={`${id}`} 
+			type="number"
 			required 
-			value={value} 
-			on:change={()=>{/*evt => setValue((evt.target as HTMLInputElement).value)*/}}
+			bind:value={value} 
 	/>
 	{/if}
 
-	<label for="input-1" class="moving-label">{label}</label>
+	<label for={`${id}`} class="moving-label">{label}</label>
 </section>
 
 

@@ -133,6 +133,17 @@ button{
     background-color: #0069d9;
     border-color: #0062cc;
 }
+.btn-outline-primary {
+    color: #007bff;
+    background-color: transparent;
+    background-image: none;
+    border-color: #007bff;
+}
+.btn-outline-primary:hover {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}
 .text-muted{ 
 	color: #999;
 	font-size: .8rem;

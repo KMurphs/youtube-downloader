@@ -65,7 +65,7 @@
 	{:else if modalData.mode === TModalMode.EDIT_ITEM }
 	<ViewItem on:closeModal={resetModal} data={data.filter(({id}) => id===modalData.data)[0]}/>
 	{:else if modalData.mode === TModalMode.ADD_ITEM }
-	<AddItemForm on:closeModal={resetModal} data={data.filter(({id}) => id===modalData.data)[0]}/>
+	<AddItemForm on:closeModal={resetModal}/>
 	{/if}
 </Modal>
 

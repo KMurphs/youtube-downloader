@@ -1,23 +1,68 @@
 <script lang="ts">
     import { createEventDispatcher, onMount } from "svelte";
-	import type { TItem } from "./App.types";
-	import Icon from "./Icon.svelte";
-	import AddItem from "./AddItem.svelte";
-	import { thumbnailURLFromFileName, getDefaultResolution } from "./App.utils";
     const dispatch = createEventDispatcher();
     const closeModal = () => dispatch("closeModal", null);
-	// export let data: TItem;
+	import Icon from "./Icon.svelte";
+	import InputWithMovingLabel from "./InputWithMovingLabel.svelte";
+
+	type TItem = {url: string, resolution: number, tags: string}
+	let currentItem: TItem = {url: "", resolution: 720, tags: ""}
+	let data: TItem[] = []
+	const loadCurrentItem = (url="", resolution=720, tags="")=>(currentItem = {url, resolution, tags})
+	const addItem = () => {data = [...data.filter(item => currentItem.url !== item.url), {...currentItem}]; loadCurrentItem()}
+	const removeItem = (url) => (data = data.filter(item => url !== item.url))
+	onMount(()=>data=[{"url": "https://www.youtube.com/watch?v=7IS7gigunyI", "resolution": 720, "tags":"nginx"}])
+
+
+	let result
+	$: console.log({result})
+	async function submitLinks () {
+		console.log(JSON.stringify(data.map(({url, resolution, tags}) => ({url, resolution, tags: tags.split(",")}))))
+		const res = await fetch('http://youtube.downloader.local/api/videos/new/bulk', {
+			method: 'POST',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(data.map(({url, resolution, tags}) => ({url, resolution, tags: tags.split(",")})))
+		})
+		
+		const json = await res.json()
+		result = JSON.stringify(json)
+	}
 </script>
 
 
 
 <h3 class="content__header">Add Video Items</h3>
 
+<section class="form">	
+	<InputWithMovingLabel label="Youtube Link" bind:value={currentItem.url}/>
+	<InputWithMovingLabel label="Resolution in pixels (720)" type="number" bind:value={currentItem.resolution}/>
+	<InputWithMovingLabel label="Comma Separated Tags" bind:value={currentItem.tags}/>
+	<button class="btn btn-outline-primary" on:click={addItem}>Add</button>
+</section>
+
 <div class="content__wrapper">
-	<AddItem />
+	{#each data as {url, resolution, tags}}
+	<section class="item-to-add">
+		<a href={url} class="font-bold">{url}</a>
+		<span class="icons ml-4">
+			<Icon on:click={()=>loadCurrentItem(url, resolution, tags)} extraClass="icon--option no-box-shadow--important hover:bg-dark-5--important scale-up-10" faClass="fa-edit"/>
+			<Icon on:click={()=>removeItem(url)} extraClass="icon--option no-box-shadow--important hover:bg-dark-5--important scale-up-10" faClass="fa-trash"/>
+		</span>
+		<br>
+		<span class="text-muted">{resolution ? `${resolution}p` : ""}</span>
+		<span class="text-muted"> - </span>
+		{#each tags.split(",") as tag}
+		<span class="text-muted">{tag}</span>
+		{/each}
+	</section>
+	{/each}
 </div>
 
 <div class="content__footer">
+    <button on:click={submitLinks} class="btn btn-primary">Submit</button>
     <button on:click={closeModal} class="btn btn-primary">Close</button>
 </div>
 
@@ -43,80 +88,26 @@ h3 {
 	min-width: auto;
 }
 
-.badge{
-	display: inline-block;
-    padding: 0.3rem 0.7rem;
-    margin: 0 2px;
-    /* border: 1px solid rgb(222, 189, 189); */
-    border-radius: 18px;
-    line-height: 1;
-    font-size: .9rem;
-	display: inline-block;
-    padding: .25em .4em;
-    font-size: 75%;
-    font-weight: 700;
-    line-height: 1;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: baseline;
-    border-radius: .25rem;
-    color: #212529;
-    background-color: #e2f0ff;
-}
-.badge--active{
-    color: #fff;
-    background-color: #dc3545;
-}
-/* .badge--small{
-	padding: 2px 8px;
-	font-size: .8rem;
-} */
 .content__footer{
 	display: flex;
-	justify-content: center;
 }
-h4{
-	font-weight: bold;
-	line-height: 1.5;
-	font-size: 1.2rem;
-	margin-top: 1rem;
+.form{ 
+	transform: scale(.9);
+	/* background-color: #f2f8ff; */
+	border-radius: 5px;
+	padding: 1rem;
+	padding-top: 0;
 }
-h4 .badge{
-	position: relative;
-	top: -2px;
+.item-to-add{
+	border-bottom: 1px solid #ccc;
 }
-
-h4 a .link-icon{
+.item-to-add .icons{
 	opacity: 0;
 }
-h4 a:hover .link-icon{
+.item-to-add:hover .icons{
 	opacity: 1;
 }
-h5{
-	line-height: 1;
-	font-size: 1rem;
-	margin: 0rem 0 1rem 0;
-	display: flex;
-	justify-content: space-between;
-}
-h5 .author::before{
-	content: "By ";
-}
-h5 .length::after{
-	content: " sec";
-}
-img{
-	margin: 1rem auto;
-	display: block;
-	width: 100%;
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-p{
-	margin: 1rem 0; 
-}
-
-.dates .text-muted{
-	display: inline-block;
-	width: 95px;
+.item-to-add a:hover{
+	border-bottom: 1px solid #ccc;
 }
 </style> 
