@@ -18,9 +18,10 @@
 
 <div class={`app-selection-controls ${isInSelectionMode ? 'visible' : ''} ${show ? 'app-selection-controls--show' : ''}`}>
 	<div class={`app-selection-controls__container`}>
-		<button on:click={()=>dispatch("selectionControlAction", "select-all")}>Select All</button>
-		<button on:click={()=>dispatch("selectionControlAction", "select-none")}>Deselect All</button>
-		<button on:click={()=>dispatch("selectionControlAction", "cancel")}>Cancel</button>
+		<button class="btn btn-primary" on:click={()=>dispatch("selectionControlAction", "select-all")}>Select All</button>
+		<button class="btn btn-primary" on:click={()=>dispatch("selectionControlAction", "select-none")}>Deselect All</button>
+		<button class="btn btn-primary" on:click={()=>dispatch("selectionControlAction", "cancel")}>Cancel</button>
+		<button class="btn btn-primary" on:click={()=>dispatch("selectionControlAction", "download")}>Download</button>
 	</div>
 </div>
 

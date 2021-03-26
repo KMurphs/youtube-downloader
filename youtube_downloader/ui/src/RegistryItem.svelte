@@ -9,8 +9,8 @@
 	import { createEventDispatcher } from "svelte";
 	import Icon from "./Icon.svelte";
 	import type { TItemExtended } from "./App.types";
-	import { longpress } from './longpress';
-	import { thumbnailURLFromFileName } from './App.utils';
+	import { longpress } from './action.longpress';
+	import { thumbnailURLFromFileName } from './api.interface';
 
 	export let isInSelectionMode = false;
 	export let data: TItemExtended & {selected: boolean};

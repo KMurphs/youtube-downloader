@@ -1,4 +1,4 @@
-import type { TItem, TItemExtended, TRegisterData } from "./App.types";
+import type { TVideo, TVideoExtended, TRegisterData } from "./App.types";
 
 const dateMonthYearFromTimeStamp = (ts: number) => {
     const t = new Date(ts);
@@ -11,7 +11,7 @@ export const keyToDateMonthYear = (key) => {
     if(parseInt(parts[2])) return [...returnData, parseInt(parts[2])]
     return returnData;
 }
-const groupByDate = (data: (TItem & {selected: boolean})[]): TRegisterData => {
+const groupByDate = (data: (TVideo & {selected: boolean})[]): TRegisterData => {
     return data.reduce((acc, item)=>{
         const {date, month, year} = dateMonthYearFromTimeStamp(item.added_at)
         const key = dateMonthYearToKey({date, month, year});
@@ -20,5 +20,5 @@ const groupByDate = (data: (TItem & {selected: boolean})[]): TRegisterData => {
         return acc;
     }, {} as TRegisterData);
 } 
-export const dateFromGroup = ([data]: TItemExtended[]): [number, string, number] => ([data.date, data.month, data.year])
+export const dateFromGroup = ([data]: TVideoExtended[]): [number, string, number] => ([data.date, data.month, data.year])
 export default groupByDate;

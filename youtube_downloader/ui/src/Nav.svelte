@@ -26,16 +26,16 @@
 		<span></span>
 	</label>
 	<ul class="nav__items reset" on:click={()=>(isOpen = false)}>
-		<li class="nav__item" style="--nth:1; --to-x:-126.504px; --to-y:1.54923e-14px;" on:click>
-			<Icon extraClass="icon--btn m-0--important" faClass="fa-columns" on:click={() => dispatch("sidePanelOpen", null)}/>
+		<li class="nav__item" style="--nth:1; --to-x:-126.504px; --to-y:1.54923e-14px;" on:click={() => dispatch("info", null)}>
+			<Icon extraClass="icon--btn m-0--important" faClass="fa-info" />
 		</li>
-		<li class="nav__item" style="--nth:2; --to-x:-109.556px; --to-y:-63.252px;" on:click>
-			<Icon extraClass="icon--btn m-0--important" faClass="fa-info"/>
+		<li class="nav__item" style="--nth:2; --to-x:-109.556px; --to-y:-63.252px;" on:click={() => dispatch("selectMode", null)}>
+			<Icon extraClass="icon--btn m-0--important" faClass="far fa-check-square"/>
 		</li>
-		<li class="nav__item" style="--nth:3; --to-x:-63.252px; --to-y:-109.556px;" on:click>
-			<Icon extraClass="icon--btn m-0--important" faClass="fa-bars"/>
+		<li class="nav__item" style="--nth:3; --to-x:-63.252px; --to-y:-109.556px;" on:click={() => dispatch("newQuery", null)}>
+			<Icon extraClass="icon--btn m-0--important" faClass="fa-align-left"/>
 		</li>
-		<li class="nav__item" style="--nth:4; --to-x:-2.32384e-14px; --to-y:-126.504px;" on:click>
+		<li class="nav__item" style="--nth:4; --to-x:-2.32384e-14px; --to-y:-126.504px;" on:click={() => dispatch("addItems", null)}>
 			<Icon extraClass="icon--btn m-0--important" faClass="fa-plus"/>
 		</li>
 	</ul>

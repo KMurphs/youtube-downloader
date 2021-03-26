@@ -1,11 +1,12 @@
 <script lang="ts">
-    import { createEventDispatcher, onMount } from "svelte";
-	import type { TItem } from "./App.types";
+    import { createEventDispatcher } from "svelte";
+	import type { TVideo } from "./App.types";
 	import Icon from "./Icon.svelte";
-	import { thumbnailURLFromFileName, getDefaultResolution } from "./App.utils";
+	import { thumbnailURLFromFileName } from "./api.interface";
+	import { getDefaultResolution } from "./Form.utils";
     const dispatch = createEventDispatcher();
     const closeModal = () => dispatch("closeModal", null);
-	export let data: TItem;
+	export let data: TVideo;
 </script>
 
 
@@ -105,6 +106,7 @@ h3 {
 } */
 .content__footer{
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
 }
 h4{

@@ -1,31 +1,37 @@
 <script lang="ts">
-import { createEventDispatcher } from "svelte";
+import getId from "./InputWithMovingLabel.utils";
+
+
+
 export let type = "text";
 export let value: string|number = "";
 export let label = "Some Label";
-const getId = ()=>Date.now() + "-" + Math.random().toPrecision(16).split(".")[1]
+export let disabled = false;
+
 const id = getId()
-const dispatch = createEventDispatcher();
 </script>
 
 
-<section class="input-with-moving-label" >
+<section class={`input-with-moving-label ${disabled ? 'input-with-moving-label--disabled' : ''}`} >
 	{#if type === "textarea"}
 	<textarea name={`textarea-${id}`}
 			id={`${id}`}
 			required 
+			disabled={disabled}
 			bind:value={value} 
 	/>
 	{:else if type === "text"}
 	<input id={`${id}`} 
 			type="text"
 			required 
+			disabled={disabled}
 			bind:value={value} 
 	/>
 	{:else}
 	<input id={`${id}`} 
 			type="number"
 			required 
+			disabled={disabled}
 			bind:value={value} 
 	/>
 	{/if}
@@ -78,8 +84,10 @@ const dispatch = createEventDispatcher();
   	transition: top .3s, left .3s, font-size .3s;
 } 
 
+.input-with-moving-label input:disabled ~ .moving-label,
 .input-with-moving-label input:valid ~ .moving-label,
 .input-with-moving-label input:focus ~ .moving-label,
+.input-with-moving-label textarea:disabled ~ .moving-label,
 .input-with-moving-label textarea:valid ~ .moving-label,
 .input-with-moving-label textarea:focus ~ .moving-label{
 	/* Style for label displayed on top */
@@ -88,5 +96,8 @@ const dispatch = createEventDispatcher();
 	left: -1rem;
 	left: -0.5rem;
 	font-size: .8rem;
+}
+.input-with-moving-label.input-with-moving-label--disabled{
+	background-color: #0000002e;
 }
 </style> 

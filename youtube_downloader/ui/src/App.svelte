@@ -1,53 +1,48 @@
 <script lang="ts">
-	// export let name: string;
 	import { onMount } from "svelte";
 	import Nav from "./Nav.svelte";
 	import Header from "./Header.svelte";
 	import Registry from "./Registry.svelte";
-	import ViewItem from "./ViewItem.svelte";
-	import AddItemForm from "./AddItemForm.svelte";
+	import ViewItem from "./Form-ViewItem.svelte";
+	import EditItem from "./Form-EditItem.svelte";
+	import AddItem from "./Form-AddItem.svelte";
+	import CustomQuery from "./Form-NewQuery.svelte";
 	import Modal from "./Modal.svelte";
 	import defineVH from "./vh";
 	import withMenu from "./context-menu";
 	import getMenuStore from "./context-menu.store";
-	import _data from "./data";
-	import type { TItem } from "./App.types";
+	import type { TVideo } from "./App.types";
+	import { TModalMode } from "./App.types";
+	import { fetchAllVideos } from "./api.interface";
+	
+	
 	onMount(defineVH);
 	
-	
 
-	// let isModalShowing = false;
-	enum TModalMode {
-		EMPTY = 0,
-		VIEW_ITEM = 1,
-		EDIT_ITEM = 2,
-		ADD_ITEM  = 3
-	}
+
 	let modalData: ({mode: TModalMode, data: string|null}) = {mode: TModalMode.EMPTY, data:null}
 	const loadItemOnModal = (itemID: string, asEditable: boolean = false) => (modalData = {mode: asEditable ? TModalMode.EDIT_ITEM : TModalMode.VIEW_ITEM, data:itemID})
 	const loadAddFormOnModal = () => (modalData = {mode: TModalMode.ADD_ITEM, data:null})
+	const loadQueryFormOnModal = () => (modalData = {mode: TModalMode.NEW_QUERY, data:null})
 	const resetModal = ()=>(modalData = {mode: TModalMode.EMPTY, data:null})
-	loadItemOnModal("_R99T3gBos2KvdxVZmXb")
-	loadAddFormOnModal()
+	// loadItemOnModal("_R99T3gBos2KvdxVZmXb")
+	// loadAddFormOnModal()
 
-	let data: (TItem & {selected: boolean})[] = [];
 
-    onMount(async () => {
-        const response = await fetch('http://youtube.downloader.local/api/videos/');
-        // const response = await fetch('https://youtube.downloader.local/api/videos/');
-        const {video, videos} = await response.json();
-		data = ([video].concat(videos)).map((item) => ({...item, selected: false}))
-    })
-	// const loadData = ()=> {
-	// 	console.log("Loading data");
-	// 	data = _data.map(item => ({...item, selected: false}))
-	// };
-	// if(!data) loadData();
+
+
+	let data: (TVideo & {selected: boolean})[] = [];
+	const loadVideos = videos => data = videos.map(item => ({...item, selected: false}))
+    onMount(()=>fetchAllVideos(null, loadVideos))
+
+
+
 
 	let isInSelectionMode = false;
+	const enterSelectionMode = ()=>isInSelectionMode = true
 	const handleSelectionChangeFromMenu = (itemId)=>handleSelectionChange({itemId, state: data.filter(({id}) => id === itemId)[0].selected})
 	const handleSelectionChange = ({itemId, state})=>{
-		isInSelectionMode = true;
+		enterSelectionMode();
 		data = data.map(({selected, id, ...rest}) => (id === itemId ? {selected: !state, id, ...rest} : {selected, id, ...rest}));
 	}
 	const handleSelectionControlAction = ({detail}) => {
@@ -59,21 +54,46 @@
 	onMount(()=>withMenu(document.querySelector(".app-container"), getMenuStore("id-menu-owner", handleSelectionChangeFromMenu, loadItemOnModal)));
 </script>
 
+
+
+
+
+
+
+
+
 <Modal visible={modalData.mode !== TModalMode.EMPTY} on:closeModal={resetModal}>
 	{#if modalData.mode === TModalMode.VIEW_ITEM }
-	<ViewItem on:closeModal={resetModal} data={data.filter(({id}) => id===modalData.data)[0]}/>
+	<ViewItem    on:closeModal={resetModal} data={data.filter(({id}) => id===modalData.data)[0]}/>
 	{:else if modalData.mode === TModalMode.EDIT_ITEM }
-	<ViewItem on:closeModal={resetModal} data={data.filter(({id}) => id===modalData.data)[0]}/>
+	<EditItem    on:closeModal={resetModal} video={data.filter(({id}) => id===modalData.data)[0]}/>
 	{:else if modalData.mode === TModalMode.ADD_ITEM }
-	<AddItemForm on:closeModal={resetModal}/>
+	<AddItem     on:closeModal={resetModal}/>
+	{:else if modalData.mode === TModalMode.NEW_QUERY }
+	<CustomQuery on:closeModal={resetModal} on:queryResults={loadVideos}/>
 	{/if}
 </Modal>
 
 <div class="app-container">
 	<Header   {isInSelectionMode}        on:selectionControlAction={handleSelectionControlAction}/>
 	<Registry {isInSelectionMode} {data} on:selectionChange={({detail})=>handleSelectionChange(detail)}/>
-	<Nav on:sidePanelOpen={()=>{/*(isModalShowing=true)*/}}/>
+	<Nav on:selectMode={enterSelectionMode} on:addItems={loadAddFormOnModal} on:newQuery={loadQueryFormOnModal}/>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <style>
 

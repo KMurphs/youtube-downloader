@@ -7,8 +7,12 @@
 //     keywords: string,
 // }
 
-
-export type TItem = {
+export type TSubmission = {
+	url: string, 
+	resolution: number, 
+	tags: string, 
+}
+export type TVideo = {
     id: string, 
     title: string,
     author: string,
@@ -30,5 +34,14 @@ export type TItem = {
     completed_at: number|null,
     completed_at_str: string|null
 }
-export type TItemExtended = TItem & {date: number, month: string, year: number}
-export type TRegisterData = {[key: string]: (TItemExtended & {selected: boolean})[]}
+export type TVideoExtended = TVideo & {date: number, month: string, year: number}
+export type TRegisterData = {[key: string]: (TVideoExtended & {selected: boolean})[]}
+
+
+export enum TModalMode {
+    EMPTY     = 0,
+    VIEW_ITEM = 1,
+    EDIT_ITEM = 2,
+    ADD_ITEM  = 3,
+    NEW_QUERY = 4
+}

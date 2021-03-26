@@ -41,7 +41,12 @@
 .b-6{ bottom: 1.5rem; }
 .h-auto{ height: auto; }
 .h-auto-imp{ height: auto !important; }
+.rotate-90{ transform: rotate(90deg); }
 .rotate-180{ transform: rotate(180deg); }
+.rotate-270{ transform: rotate(270deg); }
+.scale-50{ transform: scale(.5); }
+.scale-75{ transform: scale(.75); }
+.scale-90{ transform: scale(.9); }
 .square-2{ width: .5rem; height: .5rem}
 .square-4{ width: 1rem; height: 1rem}
 .square-6{ width: 1.5rem; height: 1.5rem}
