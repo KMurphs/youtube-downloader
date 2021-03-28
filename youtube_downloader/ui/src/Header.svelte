@@ -1,26 +1,34 @@
 <script lang="ts">
 	import { createEventDispatcher } from "svelte";
 	import Icon from "./Icon.svelte";
+
+
 	export let isInSelectionMode: boolean;
 	let show = false
 	$: isInSelectionMode && setTimeout(()=>(show = true), 200);
 	$: !isInSelectionMode && (show = false);
+
+	export let filterExpression = "";
+
 	const dispatch = createEventDispatcher();
 </script>
 
 <header class="app-header">
 	<h1>Videos</h1>
 	<div class="app-header__search-input">
-		<input type="text" placeholder="Enter text to filter displayed items">
+		<input type="text" placeholder="Enter text to filter displayed items" bind:value={filterExpression}>
 		<Icon extraClass="icon--image position-absolute r-2" faClass="fa-search"/>
 	</div>
 </header>
 
 <div class={`app-selection-controls ${isInSelectionMode ? 'visible' : ''} ${show ? 'app-selection-controls--show' : ''}`}>
 	<div class={`app-selection-controls__container`}>
-		<button class="btn btn-primary" on:click={()=>dispatch("selectionControlAction", "select-all")}>Select All</button>
-		<button class="btn btn-primary" on:click={()=>dispatch("selectionControlAction", "select-none")}>Deselect All</button>
-		<button class="btn btn-primary" on:click={()=>dispatch("selectionControlAction", "cancel")}>Cancel</button>
+		<span class="">
+			<button class="btn btn-outline-primary" on:click={()=>dispatch("selectionControlAction", "select-all")}>Select All</button>
+			<button class="btn btn-outline-primary" on:click={()=>dispatch("selectionControlAction", "select-none")}>Deselect All</button>
+			<button class="btn btn-outline-primary" on:click={()=>dispatch("selectionControlAction", "cancel")}>Cancel</button>
+		</span>
+
 		<button class="btn btn-primary" on:click={()=>dispatch("selectionControlAction", "download")}>Download</button>
 	</div>
 </div>
@@ -93,6 +101,9 @@ input{
 	-webkit-transition: all 0.3s cubic-bezier(0.25, 0.5, 0.5, 0.9);
 	-moz-transition: all 0.3s cubic-bezier(0.25, 0.5, 0.5, 0.9);
 	transition: all 0.3s cubic-bezier(0.25, 0.5, 0.5, 0.9);
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
 }
 .app-selection-controls.visible{
 	display: flex;
@@ -111,7 +122,7 @@ input{
 	opacity: 1;
 }
 .app-selection-controls button{
-	padding: .2rem .5rem;
+	padding: .2rem 2rem;
 	font-size: .8rem;
 }
 @media screen and (min-width: 640px){
@@ -123,4 +134,9 @@ input{
 		margin-right: .5rem;
 	}
 }
+.btn-primary{
+	background-color: var(--primary);
+	border-color: var(--primary);
+}
+
 </style>

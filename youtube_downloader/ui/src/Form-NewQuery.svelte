@@ -3,6 +3,7 @@
 	import InputWithMovingLabel from "./InputWithMovingLabel.svelte";
 	import { submitQuery } from "./api.interface";
 	import type { TVideo } from "./App.types";
+	import { allowTabInTextArea } from "./Form.utils"
     const dispatch = createEventDispatcher();
     const closeModal = () => dispatch("closeModal", null);
     const queryAPI = (data: TVideo[]) => dispatch("queryResults", data);
@@ -14,6 +15,8 @@
 		try{ return JSON.parse(json_string) }
 		catch(e){ return null }
 	})(query_string)
+
+
 </script>
 
 
@@ -21,7 +24,7 @@
 <h3 class="content__header">Submit New Query</h3>
 
 <div class="content__wrapper">
-	<InputWithMovingLabel label="DSL Query" type="textarea" bind:value={query_string}/>
+	<InputWithMovingLabel label="DSL Query" type="textarea" bind:value={query_string} on:keydown={(e)=>allowTabInTextArea(e.detail)} extraClasses="math"/>
 	<div class={`is-valid-json ${query_object ? '' : 'is-valid-json--invalid'}`}>
 		{#if !!query_object }
 		Valid JSON Object
@@ -33,7 +36,7 @@
 
 <div class="content__footer">
     <button on:click={()=>closeModal && submitQuery(query_object || {}, null, queryAPI)} class="btn btn-primary">Submit</button>
-    <button on:click={closeModal} class="btn btn-primary">Close</button>
+    <button on:click={closeModal} class="btn btn-outline-primary">Close</button>
 </div>
 
 
@@ -86,4 +89,8 @@ button{
     color: red;
 }
 
+
+:global(.math textarea) {
+	font-family: 'math', 'Courier New', Courier, monospace;
+}
 </style> 

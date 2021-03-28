@@ -99,6 +99,7 @@ h3 {
 .badge--active{
     color: #fff;
     background-color: #dc3545;
+    background-color: #6E356E;
 }
 /* .badge--small{
 	padding: 2px 8px;

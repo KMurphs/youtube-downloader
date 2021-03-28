@@ -117,7 +117,7 @@
 	position: absolute;
 	height: 9px;
 	width: 100%;
-	background: #d3531a;
+	background: #DC2925;
 	border-radius: 9px;
 	opacity: 1;
 	left: 0;
@@ -233,7 +233,12 @@
 }
 
 
-
+:global(.nav__item button.icon.icon--btn){
+	background-color: var(--primary);
+}
+:global(.nav__item button.icon.icon--btn i){
+	color: white;
+}
 
 
 @media screen and (min-width: 640px){

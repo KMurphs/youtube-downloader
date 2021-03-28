@@ -41,7 +41,7 @@
 	<InputWithMovingLabel label="Youtube Link" bind:value={currentItem.url}/>
 	<InputWithMovingLabel label="Resolution in pixels (720)" type="number" bind:value={currentItem.resolution}/>
 	<InputWithMovingLabel label="Comma Separated Tags" bind:value={currentItem.tags}/>
-	<button class="btn btn-outline-primary" on:click={addNewItem}>Add</button>
+	<button class="btn btn-primary btn-accent-2" on:click={addNewItem}>Add</button>
 </section>
 
 <div class="content__wrapper">
@@ -84,7 +84,7 @@
 
 <div class="content__footer">
     <button on:click={submit} class="btn btn-primary">Submit</button>
-    <button on:click={closeModal} class="btn btn-primary">Close</button>
+    <button on:click={closeModal} class="btn btn-outline-primary">Close</button>
 </div>
 
 
@@ -102,6 +102,8 @@ h3 {
 	background: rgba(0,0,0,0.1);
 	border-radius: 3px 3px 0 0;
 }
+
+
 
 
 .content__wrapper, .content__header, .content__footer{

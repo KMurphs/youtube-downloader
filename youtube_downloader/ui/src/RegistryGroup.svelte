@@ -36,12 +36,14 @@
 		height: var(--size);
 		left: calc(var(--size) / -2);
 		top: var(--size);
-		border: 4px solid blue;
+		border: 4px solid #3f5cda;
+		border: 4px solid var(--accent-2);
 	}
 	.group::after{
 		position: absolute;
 		content: "";
-		background-color: blue;
+		background-color: #3f5cda;
+		background-color: var(--accent-2);
 		width: 1px;
 		left: 0;
 		top: 1.5rem;

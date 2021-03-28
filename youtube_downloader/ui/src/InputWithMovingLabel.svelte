@@ -1,24 +1,35 @@
 <script lang="ts">
 import getId from "./InputWithMovingLabel.utils";
+import { createEventDispatcher } from "svelte";
 
 
+/**
+ * Typing documented here: https://github.com/sveltejs/language-tools/blob/master/docs/preprocessors/typescript.md#typing-component-events
+ */
+const dispatchKeyDown = createEventDispatcher<{
+
+	keydown: KeyboardEvent
+}>();
 
 export let type = "text";
 export let value: string|number = "";
 export let label = "Some Label";
 export let disabled = false;
+export let extraClasses = "";
 
 const id = getId()
 </script>
 
 
-<section class={`input-with-moving-label ${disabled ? 'input-with-moving-label--disabled' : ''}`} >
+<section class={`input-with-moving-label ${disabled ? 'input-with-moving-label--disabled' : ''} ${extraClasses}`} >
 	{#if type === "textarea"}
 	<textarea name={`textarea-${id}`}
 			id={`${id}`}
+			rows=5
 			required 
 			disabled={disabled}
 			bind:value={value} 
+			on:keydown={e=>dispatchKeyDown("keydown", e)}
 	/>
 	{:else if type === "text"}
 	<input id={`${id}`} 
@@ -26,6 +37,7 @@ const id = getId()
 			required 
 			disabled={disabled}
 			bind:value={value} 
+			on:keydown={e=>dispatchKeyDown("keydown", e)}
 	/>
 	{:else}
 	<input id={`${id}`} 
@@ -33,6 +45,7 @@ const id = getId()
 			required 
 			disabled={disabled}
 			bind:value={value} 
+			on:keydown={e=>dispatchKeyDown("keydown", e)}
 	/>
 	{/if}
 
@@ -78,6 +91,7 @@ const id = getId()
     outline: none;
     border: none;
     border-bottom: 1px solid red;
+    border-bottom: 1px solid var(--accent-2, red);
 }
 .input-with-moving-label *{
   	/* General styles for the input */

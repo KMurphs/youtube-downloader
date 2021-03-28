@@ -39,14 +39,14 @@
 
 
 
-<h3 class="content__header">Add Video Items</h3>
+<h3 class="content__header">Edit Video Items</h3>
 
 <section class="form">	
 	<h4>Enter Video Details: </h4>
 	<InputWithMovingLabel disabled label="Youtube Link" bind:value={currentItem.url}/>
 	<InputWithMovingLabel disabled label="Resolution in pixels (720)" type="number" bind:value={currentItem.resolution}/>
 	<InputWithMovingLabel label="Comma Separated Tags" bind:value={currentItem.tags}/>
-	<button class="btn btn-outline-primary" on:click={addNewItem}>Add</button>
+	<button class="btn btn-primary btn-accent-2" on:click={addNewItem}>Add</button>
 </section>
 
 
@@ -73,7 +73,7 @@
 
 
 <div class="content__footer">
-    <button on:click={closeModal} class="btn btn-primary">Close</button>
+    <button on:click={closeModal} class="btn btn-outline-primary">Close</button>
 </div>
 
 
@@ -176,9 +176,11 @@ img{
 .badge--active{
     color: #fff;
     background-color: #dc3545;
+    background-color: #6E356E;
 }
 h4 .badge{
 	position: relative;
 	top: -2px;
 }
+
 </style> 

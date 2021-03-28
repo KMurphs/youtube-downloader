@@ -1,10 +1,14 @@
 /* https://help.campaignmonitor.com/email-builder-font-compatibility */
-
+/* https://coolors.co/f43c90-dc2925-2344d3-f5f6fa */
 
 *, *::after, *::before {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;	
+	--primary: #DC2925;
+	--accent: #2344d3;
+	--accent-2: #f43c90;
+	--accent-2--darker: #d81e72;
 }
 *{
 	font-family: 'Merriweather', DejaVu Sans Serif, Georgia, serif;
@@ -26,7 +30,7 @@ body{
 	align-items: center;
 	position: relative;
 	flex-direction: column;
-	background-color: hsl(120, 5%, 85%);
+	background-color: hsl(229, 5%, 85%);
 } 
 
 body::before{
@@ -38,6 +42,7 @@ body::before{
 	top: 0;
 	height: 20vh;
 	background-color: #DC2925;
+	background-color: var(--primary);
 }
 
 h1, h2, h3, h4, h5, h6{
@@ -82,6 +87,10 @@ a:active { /* active link */ color: #000; }
 	line-height: 1;
 	font-size: .9rem;
 }
+.context-menu li i{
+	color: #3f5cda;
+	color: var(--accent);
+}
 .context-menu li:hover{
 	background-color: rgba(0,0,0,0.02);
 }
@@ -95,7 +104,7 @@ button{
 	border-radius: 10px;
 	padding: .5rem 1rem;
 	background-color: #1446c6;
-	border: 1px solid #1446c6;
+	border: 1px solid var(--accent);
 	color: white;
 	min-height: 40px;
 }
@@ -126,23 +135,41 @@ button{
 .btn-primary {
     color: #fff;
     background-color: #007bff;
+    background-color: var(--accent);
     border-color: #007bff;
+    border-color: var(--accent);
+}
+.btn-accent-2{
+	color: #fff;
+    background-color: var(--accent-2);
+    border-color: var(--accent-2);
 }
 .btn-primary:hover {
     color: #fff;
     background-color: #0069d9;
+    background-color: var(--accent);
     border-color: #0062cc;
+    border-color: var(--accent);
+}
+.btn-accent-2:hover {
+    color: #fff;
+    background-color: var(--accent-2--darker);
+    border-color: var(--accent-2);
 }
 .btn-outline-primary {
     color: #007bff;
+    color: var(--accent);
     background-color: transparent;
     background-image: none;
     border-color: #007bff;
+    border-color: var(--accent);
 }
 .btn-outline-primary:hover {
     color: #fff;
     background-color: #007bff;
+    background-color: var(--accent);
     border-color: #007bff;
+    border-color: var(--accent);
 }
 .text-muted{ 
 	color: #999;

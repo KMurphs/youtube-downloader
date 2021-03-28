@@ -8,12 +8,12 @@
 	import { slide } from 'svelte/transition';
 	import { createEventDispatcher } from "svelte";
 	import Icon from "./Icon.svelte";
-	import type { TItemExtended } from "./App.types";
+	import type { TVideoExtended } from "./App.types";
 	import { longpress } from './action.longpress';
 	import { thumbnailURLFromFileName } from './api.interface';
 
 	export let isInSelectionMode = false;
-	export let data: TItemExtended & {selected: boolean};
+	export let data: TVideoExtended & {selected: boolean};
 
 	
 	const thumbnail_url = thumbnailURLFromFileName(data.thumbnail_filename)

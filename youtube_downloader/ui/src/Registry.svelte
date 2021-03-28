@@ -1,4 +1,8 @@
 <script lang="ts">
+	import { createEventDispatcher } from 'svelte';
+	import type { TVideo } from "./App.types";
+
+	
 	let url: string|null = null;
 	import RegistryGroup from "./RegistryGroup.svelte";
 	import RegistryItem from "./RegistryItem.svelte";
@@ -6,13 +10,12 @@
 
 
 	export let isInSelectionMode = false;
-	export let data: (TItem & {selected: boolean})[] = [];
+	export let data: (TVideo & {selected: boolean})[] = [];
 	$: groupedData = groupByDate(data);
 	$: keys = Object.keys(groupedData).sort((a,b)=>groupedData[a][0].added_at - groupedData[b][0].added_at);
 
 
-	import { createEventDispatcher } from 'svelte';
-	import type { TItem } from "./App.types";
+
 
 	const dispatch = createEventDispatcher();
 	const forward = ({type, detail}) => dispatch(type, detail);

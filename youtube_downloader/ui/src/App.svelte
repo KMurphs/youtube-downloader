@@ -14,6 +14,7 @@
 	import type { TVideo } from "./App.types";
 	import { TModalMode } from "./App.types";
 	import { fetchAllVideos } from "./api.interface";
+	import applyFilterExpression from "./App.utils";
 	
 	
 	onMount(defineVH);
@@ -35,6 +36,8 @@
 	const loadVideos = videos => data = videos.map(item => ({...item, selected: false}))
     onMount(()=>fetchAllVideos(null, loadVideos))
 
+	let filterExpression = "";
+	$: filteredData = applyFilterExpression(data, filterExpression);
 
 
 
@@ -75,8 +78,8 @@
 </Modal>
 
 <div class="app-container">
-	<Header   {isInSelectionMode}        on:selectionControlAction={handleSelectionControlAction}/>
-	<Registry {isInSelectionMode} {data} on:selectionChange={({detail})=>handleSelectionChange(detail)}/>
+	<Header   {isInSelectionMode} bind:filterExpression={filterExpression}  on:selectionControlAction={handleSelectionControlAction}/>
+	<Registry {isInSelectionMode} data={filteredData} on:selectionChange={({detail})=>handleSelectionChange(detail)}/>
 	<Nav on:selectMode={enterSelectionMode} on:addItems={loadAddFormOnModal} on:newQuery={loadQueryFormOnModal}/>
 </div>
 
