@@ -1,11 +1,5 @@
 version: '2'
 services:
-  # frontend_app:
-  #   image: nginx
-  #   volumes:
-  #     - ./ui:/usr/share/nginx/html
-  #   ports:
-  #     - "80"
 
   frontend_app:
     image: nginx
