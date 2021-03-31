@@ -52,7 +52,7 @@
 		(detail === "select-all") && (data = data.map(({selected, ...rest}) => ({selected: true, ...rest})));
 		(detail === "select-none" || detail === "cancel") && (data = data.map(({selected, ...rest}) => ({selected: false, ...rest})));
 		(detail === "cancel") && (isInSelectionMode = false);
-		(detail === "download") && submitDownloads(data.filter(({selected}) => selected === true), null, (link:string) => downloadLink = link);
+		(detail === "download") && submitDownloads(data.filter(({selected}) => selected === true).map(({id})=>id), null, (link:string) => downloadLink = link);
 	}
 
 	onMount(()=>withMenu(document.querySelector(".app-container"), getMenuStore("id-menu-owner", handleSelectionChangeFromMenu, loadItemOnModal)));

@@ -32,7 +32,7 @@ async function submitDownloads (data: any[], preCallback: Function, postCallback
     });
     
     const result = await res.json();
-    const {link} = result.results;
+    const {link} = result;
     // const link = await new Promise(resolve => setTimeout(()=>resolve("1234"), 2000));
 
     postCallback && postCallback(link || null);
