@@ -10,7 +10,7 @@ services:
   frontend_app:
     image: nginx
     volumes:
-      - ./ui:/usr/share/nginx/html
+      - ./ui/public:/usr/share/nginx/html
     ports:
       - "80"
 
@@ -48,6 +48,7 @@ services:
     volumes:
       - ./api/thumbnails:/youtube_downloader/thumbnails/
       - ./api/videos:/youtube_downloader/videos/
+      - ./api/bundles:/youtube_downloader/bundles/
       # - ./api/videos:/youtube_downloader/app/
     ports:
       - 4444:8000

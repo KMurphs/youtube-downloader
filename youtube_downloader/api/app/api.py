@@ -5,9 +5,12 @@ from flask import Flask, request
 from __init__ import setup_logging
 import urllib3
 import urllib
+from utils.utils import str_to_filename
 import utils.video_manager as vm
 # import utils.elasticsearch_manager as em 
 import utils.routes_from_file as rff
+import utils.zip as zip
+import os
 
 
 logger = setup_logging()
@@ -133,6 +136,28 @@ def get_videos():
 
 @app.route('/ping')
 def ping(): return json.dumps({"code":200, "reply": "pong", "host": "backend"}, indent=4), 200, {'ContentType':'application/json'}
+
+
+@app.route("/zip", methods=['POST'])
+def archive(): 
+    logging.debug(request.path        )
+    logging.debug(request.full_path   )
+    logging.debug(request.script_root )
+    logging.debug(request.base_url    )
+    logging.debug(request.url         )
+    logging.debug(request.url_root    )
+
+    logging.debug("Zipping videos")
+
+    manifest = [ vm.get_name_from_id(id) for id in request.json ]
+    logging.debug(f"Zip Manifest: {json.dumps(manifest)}")
+
+
+    bundle_name, bundle_path, bundle_url = vm.get_zipfile_details(url_root=request.url_root)
+    _data, has_error = try_action(lambda: zip.from_iterator(bundle_path, [ (vm.get_name_from_id(id), vm.get_path_from_id(id)) for id in request.json ] + [("manifest.json", {"manifest": manifest})]))
+    if has_error: return json.dumps({"message": "Could not bundles videos", "data": _data}, indent=4), has_error, {'ContentType':'application/json'}
+    logging.debug(f"Bundle accessible at: {bundle_url}")
+    return json.dumps({"link": bundle_url}, indent=4), 200, {'ContentType':'application/json'}
 
 
 @app.route('/')

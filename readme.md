@@ -75,3 +75,4 @@ https://github.com/microsoft/pylance-release/issues/236#issuecomment-759828693
 https://chrisyeh96.github.io/2017/08/08/definitive-guide-python-imports.html
 https://blog.theodo.com/2020/05/debug-flask-vscode/
 https://github.com/PyBackendBoilerplate/micro-service
+https://stackoverflow.com/questions/25594893/how-to-enable-cors-in-flask

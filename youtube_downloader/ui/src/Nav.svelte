@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { createEventDispatcher, onMount } from "svelte";
+	import { createEventDispatcher } from "svelte";
 	const dispatch = createEventDispatcher();
 	export let isOpen: boolean = false;
 	import Icon from "./Icon.svelte";

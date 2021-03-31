@@ -6,6 +6,7 @@
 	padding: 0;
 	box-sizing: border-box;	
 	--primary: #DC2925;
+	--primary--darker: #c7120f;
 	--accent: #2344d3;
 	--accent-2: #f43c90;
 	--accent-2--darker: #d81e72;

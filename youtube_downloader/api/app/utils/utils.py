@@ -4,7 +4,8 @@ import os
 from pathlib import Path
 from typing import Dict, List
 
-def url_to_filename(url, extension = "png"): return f"{hash_string(url)}-{datetime.now().strftime('%Y%m%d%H%M%S-%f')}.{extension}"
+def url_to_filename(url, extension = "png"): return str_to_filename(hash_string(url), extension)
+def str_to_filename(string, extension = "png"): return f"{string}-{datetime.now().strftime('%Y%m%d%H%M%S-%f')}.{extension}"
 def dict_from_class(obj): return dict((name, getattr(obj, name)) for name in dir(obj) if not name.startswith('__')) 
 def dict_from_class_props(cls): 
   import inspect

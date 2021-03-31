@@ -13,6 +13,9 @@ services:
       - 80:80
       - 443:443
     volumes:
+      - ../youtube_downloader/api/thumbnails:/var/www/html/thumbnails
+      - ../youtube_downloader/api/videos:/var/www/html/videos
+      - ../youtube_downloader/api/bundles:/var/www/html/bundles
       - ./assets:/var/www/html/assets
       - ./ssl:/etc/ssl/certs/nginx
       - ./includes:/etc/nginx/includes

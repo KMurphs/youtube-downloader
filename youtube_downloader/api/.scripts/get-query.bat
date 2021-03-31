@@ -1,5 +1,11 @@
 @echo off
-curl -X POST "localhost:5000/videos/queries" -H "Content-Type: application/json" -d@"%~dp0get-query.json"
+
+set URL=%1
+if "%URL%" == "" (
+    set URL=youtube.downloader.local/api
+) 
+
+curl -X POST "%URL%/videos/queries" -H "Content-Type: application/json" -d@"%~dp0get-query.json"
 echo.
 
 

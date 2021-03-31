@@ -1,5 +1,5 @@
 {
-    "query": { "bool": {"filter": [{ "term":  { "status": "0" }}]}	}
+    "query": { "bool": {"filter": [{ "term":  { "status": "1" }}]}	}
 }
   
   

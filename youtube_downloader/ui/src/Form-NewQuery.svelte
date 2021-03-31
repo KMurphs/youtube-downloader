@@ -4,9 +4,10 @@
 	import { submitQuery } from "./api.interface";
 	import type { TVideo } from "./App.types";
 	import { allowTabInTextArea } from "./Form.utils"
-    const dispatch = createEventDispatcher();
-    const closeModal = () => dispatch("closeModal", null);
-    const queryAPI = (data: TVideo[]) => dispatch("queryResults", data);
+    const dispatchCloseModal = createEventDispatcher<{closeModal: null}>();
+    const dispatchResults = createEventDispatcher<{queryResults: TVideo[]}>();
+    const closeModal = () => dispatchCloseModal("closeModal", null);
+    const queryAPI = (data: TVideo[]) => dispatchResults("queryResults", data);
 	
 	let query_string: string = "{}";
 	let query_object: {[key: string]: any}|null = {};

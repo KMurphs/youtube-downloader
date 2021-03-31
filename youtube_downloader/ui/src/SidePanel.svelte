@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { fade, fly } from 'svelte/transition';
     import { createEventDispatcher } from "svelte";
 	import { scale } from 'svelte/transition';
 	import { elasticInOut } from 'svelte/easing';
@@ -60,10 +59,10 @@
     justify-content: space-between;
     align-items: baseline;
 }
-.icon--option{
+/* .icon--option{
     height: 1rem;
     width: 1rem;
-}
+} */
 
 
 

@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { createEventDispatcher } from "svelte";
 	import Icon from "./Icon.svelte";
+	import { fly } from 'svelte/transition';
+	const dispatch = createEventDispatcher();
 
 
 	export let isInSelectionMode: boolean;
@@ -8,9 +10,12 @@
 	$: isInSelectionMode && setTimeout(()=>(show = true), 200);
 	$: !isInSelectionMode && (show = false);
 
+
 	export let filterExpression = "";
 
-	const dispatch = createEventDispatcher();
+
+	export let downloadLink: string  = null;
+	
 </script>
 
 <header class="app-header">
@@ -28,9 +33,14 @@
 			<button class="btn btn-outline-primary" on:click={()=>dispatch("selectionControlAction", "select-none")}>Deselect All</button>
 			<button class="btn btn-outline-primary" on:click={()=>dispatch("selectionControlAction", "cancel")}>Cancel</button>
 		</span>
-
-		<button class="btn btn-primary" on:click={()=>dispatch("selectionControlAction", "download")}>Download</button>
+		<span class="">
+			<button class="btn btn-primary" on:click={()=>dispatch("selectionControlAction", "download")}>Zip Files</button>
+			{#if downloadLink}
+			<a href={downloadLink} class="btn btn-outline-primary" transition:fly="{{ x: 200, duration: 400 }}">Download</a>
+			{/if}
+		</span>
 	</div>
+	
 </div>
 
 <style>
@@ -137,6 +147,23 @@ input{
 .btn-primary{
 	background-color: var(--primary);
 	border-color: var(--primary);
+}
+.btn-primary:hover{
+	background-color: var(--primary--darker);
+	border-color: var(--primary);
+}
+a.btn{
+	min-height: 40px;
+	color: var(--primary);
+	display: inline-block;
+	border: 1px solid var(--primary);
+    padding: .2rem 1.5rem;
+    font-size: .8rem;
+    line-height: 2rem;
+}
+a.btn:hover{
+	background-color: var(--primary);
+	color: white;
 }
 
 </style>

@@ -13,7 +13,7 @@
 	import getMenuStore from "./context-menu.store";
 	import type { TVideo } from "./App.types";
 	import { TModalMode } from "./App.types";
-	import { fetchAllVideos } from "./api.interface";
+	import { fetchAllVideos, submitDownloads } from "./api.interface";
 	import applyFilterExpression from "./App.utils";
 	
 	
@@ -33,17 +33,17 @@
 
 
 	let data: (TVideo & {selected: boolean})[] = [];
-	const loadVideos = videos => data = videos.map(item => ({...item, selected: false}))
+	const loadVideos = (videos: (TVideo & {selected: boolean})[]) => data = videos.map(item => ({...item, selected: false}))
     onMount(()=>fetchAllVideos(null, loadVideos))
 
 	let filterExpression = "";
 	$: filteredData = applyFilterExpression(data, filterExpression);
 
-
+	let downloadLink: string = null;
 
 	let isInSelectionMode = false;
 	const enterSelectionMode = ()=>isInSelectionMode = true
-	const handleSelectionChangeFromMenu = (itemId)=>handleSelectionChange({itemId, state: data.filter(({id}) => id === itemId)[0].selected})
+	const handleSelectionChangeFromMenu = (itemId: string|number)=>handleSelectionChange({itemId, state: data.filter(({id}) => id === itemId)[0].selected})
 	const handleSelectionChange = ({itemId, state})=>{
 		enterSelectionMode();
 		data = data.map(({selected, id, ...rest}) => (id === itemId ? {selected: !state, id, ...rest} : {selected, id, ...rest}));
@@ -52,9 +52,13 @@
 		(detail === "select-all") && (data = data.map(({selected, ...rest}) => ({selected: true, ...rest})));
 		(detail === "select-none" || detail === "cancel") && (data = data.map(({selected, ...rest}) => ({selected: false, ...rest})));
 		(detail === "cancel") && (isInSelectionMode = false);
+		(detail === "download") && submitDownloads(data.filter(({selected}) => selected === true), null, (link:string) => downloadLink = link);
 	}
 
 	onMount(()=>withMenu(document.querySelector(".app-container"), getMenuStore("id-menu-owner", handleSelectionChangeFromMenu, loadItemOnModal)));
+
+
+
 </script>
 
 
@@ -73,12 +77,12 @@
 	{:else if modalData.mode === TModalMode.ADD_ITEM }
 	<AddItem     on:closeModal={resetModal}/>
 	{:else if modalData.mode === TModalMode.NEW_QUERY }
-	<CustomQuery on:closeModal={resetModal} on:queryResults={loadVideos}/>
+	<CustomQuery on:closeModal={resetModal} on:queryResults={e=>loadVideos(e.detail.map(video=>({...video, selected: false})))}/>
 	{/if}
 </Modal>
 
 <div class="app-container">
-	<Header   {isInSelectionMode} bind:filterExpression={filterExpression}  on:selectionControlAction={handleSelectionControlAction}/>
+	<Header   {isInSelectionMode} {downloadLink} bind:filterExpression={filterExpression}  on:selectionControlAction={handleSelectionControlAction}/>
 	<Registry {isInSelectionMode} data={filteredData} on:selectionChange={({detail})=>handleSelectionChange(detail)}/>
 	<Nav on:selectMode={enterSelectionMode} on:addItems={loadAddFormOnModal} on:newQuery={loadQueryFormOnModal}/>
 </div>

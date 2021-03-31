@@ -3,7 +3,6 @@
 	import type { TVideo } from "./App.types";
 
 	
-	let url: string|null = null;
 	import RegistryGroup from "./RegistryGroup.svelte";
 	import RegistryItem from "./RegistryItem.svelte";
 	import groupByDate, { dateFromGroup } from "./Registry.utils";
@@ -31,7 +30,7 @@
 
 {#await data}
 	<p>...waiting</p>
-{:then data}
+{:then}
 	{#each keys as key (key)}
 	<RegistryGroup data={dateFromGroup(groupedData[key])}>
 		{#each groupedData[key] as item (item.id)}
@@ -39,7 +38,7 @@
 		{/each}
 	</RegistryGroup>
 	{/each}
-{:catch error}
+{:catch}
 	<p>An error occurred!</p>
 {/await}
 

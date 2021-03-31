@@ -8,7 +8,7 @@ from functools import reduce
 from pytube import YouTube
 from utils.types import RemoteImage, RemoteVideo
 import utils.elasticsearch_manager as em
-from utils.utils import build_absolute_path, dict_from_class, hash_string, set_key_on_dict, url_to_filename
+from utils.utils import build_absolute_path, dict_from_class, hash_string, set_key_on_dict, str_to_filename, url_to_filename
 
 
 
@@ -70,8 +70,14 @@ def get_video_by_url(url): return to_VideoRecord(em.get_video_from_props('uri_ha
 def get_video_by_id(id): return to_VideoRecord(em.get_video_by_id(id))
 def update_video(id, video): return em.update_video(id, video)
 def create_video(video): return em.create_video(video)
-
-
+def get_name_from_id(id): return em.get_video_by_id(id)["_source"]['video_filename']
+def get_path_from_id(id): return em.get_video_by_id(id)["_source"]['video_filepath']
+def get_zipfile_details(url_root, filename = "bundle"): 
+  
+  name = str_to_filename(filename, "zip")
+  path = build_absolute_path(name, relative_path_parts=["..", "bundles"])
+  url = f"{url_root}bundles/{name}"
+  return (name, path, url)
 
 def get_search_url(args = None, prettify = True): return em.get_search_url(args, prettify)
 

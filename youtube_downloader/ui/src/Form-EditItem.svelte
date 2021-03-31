@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { createEventDispatcher, onMount } from "svelte";
+    import { createEventDispatcher } from "svelte";
 	import Icon from "./Icon.svelte";
 	import InputWithMovingLabel from "./InputWithMovingLabel.svelte";
 	import { submitLinks, thumbnailURLFromFileName } from "./api.interface";
@@ -21,14 +21,14 @@
 	let data: TItem[] = []
 	const loadAsCurrentItem = (url="", resolution=720, tags="")=>(currentItem = {url, resolution, tags, status: ""})
 	const addNewItem = () => {data = [...data.filter(item => currentItem.url !== item.url), {...currentItem}]; loadAsCurrentItem()}
-	const removeItem = (url) => (data = data.filter(item => url !== item.url))
+	// const removeItem = (url) => (data = data.filter(item => url !== item.url))
 	// onMount(()=>data=[{"url": "https://www.youtube.com/watch?v=7IS7gigunyI", "resolution": 720, "tags":"nginx", "status":""}])
 
 
 	const submit = ()=>submitLinks(
 		data.map(({tags, ...rest}) => ({...rest, tags: tags.split(",")})),
 		()=>data = data.map(({status, ...rest}) => ({...rest, status: "fetching"})),
-		(failed, created)=>{
+		(failed: string[], created: string[])=>{
 			failed.forEach(item => data = data.map(({status, ...rest}) => ({...rest, status: rest.url.includes(JSON.parse(item).video.uri) ? "failure" : status})))
     		created.forEach(item => data = data.map(({status, ...rest}) => ({...rest, status: rest.url.includes(JSON.parse(item).video.uri) ? "success" : status})))
 		}
