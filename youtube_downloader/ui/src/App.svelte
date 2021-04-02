@@ -33,7 +33,7 @@
 
 
 	let data: (TVideo & {selected: boolean})[] = [];
-	const loadVideos = (videos: (TVideo & {selected: boolean})[]) => data = videos.map(item => ({...item, selected: false}))
+	const loadVideos = (videos: (TVideo & {selected: boolean})[]) => data = videos.filter(item=>item.id).map(item => ({...item, selected: false}))
     onMount(()=>fetchAllVideos(null, loadVideos))
 
 	let filterExpression = "";
