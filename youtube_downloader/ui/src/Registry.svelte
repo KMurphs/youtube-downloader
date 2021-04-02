@@ -31,6 +31,7 @@
 {#await data}
 	<p>...waiting</p>
 {:then}
+	{#if data.length > 0}
 	{#each keys as key (key)}
 	<RegistryGroup data={dateFromGroup(groupedData[key])}>
 		{#each groupedData[key] as item (item.id)}
@@ -38,6 +39,7 @@
 		{/each}
 	</RegistryGroup>
 	{/each}
+	{/if}
 {:catch}
 	<p>An error occurred!</p>
 {/await}
