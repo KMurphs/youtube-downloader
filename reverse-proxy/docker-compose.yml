@@ -4,6 +4,7 @@ services:
     # build: ./
     image: nginx:latest
     container_name: reverse-proxy
+    restart: always
     environment:
       - service.role=reverse-proxy
     networks:
