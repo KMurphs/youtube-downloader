@@ -50,7 +50,7 @@
 		<h1 class="group__title">{data.title}</h1>
 		<h2 class="group__subtitle">{data.author}</h2>
 		<div class="group__keywords">
-			{#each data.keywords as keyword}
+			{#each [...data.tags, ...data.keywords].slice(0, 5) as keyword}
 			<!-- {#each data.keywords.split(", ") as keyword} -->
 			<span class="group__keyword">{keyword}</span>
 			{/each}
