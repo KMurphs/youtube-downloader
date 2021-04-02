@@ -73,8 +73,8 @@ def new_video(): return add_video(request.json)
 def new_videos(): 
     results = [ add_video(video) for video in request.json ]
     response = {
-        "failed": [ res[0] for res in results if res[1] != 0],
-        "created": [ res[0] for res in results if res[1] == 0]
+        "failed": [ res[0] for res in results if res[1] != 201],
+        "created": [ res[0] for res in results if res[1] == 201]
     }
     return json.dumps({"results": response}, indent=4), 200, {'ContentType':'application/json'}
 
@@ -140,13 +140,6 @@ def ping(): return json.dumps({"code":200, "reply": "pong", "host": "backend"}, 
 
 @app.route("/zip", methods=['POST'])
 def archive(): 
-    logging.debug(request.path        )
-    logging.debug(request.full_path   )
-    logging.debug(request.script_root )
-    logging.debug(request.base_url    )
-    logging.debug(request.url         )
-    logging.debug(request.url_root    )
-
     logging.debug("Zipping videos")
 
     manifest = [ vm.get_name_from_id(id) for id in request.json ]
