@@ -12,7 +12,7 @@
 	export let data: (TVideo & {selected: boolean})[] = [];
 	$: groupedData = groupByDate(data);
 	$: keys = Object.keys(groupedData).sort((a,b)=>groupedData[a][0].added_at - groupedData[b][0].added_at);
-
+	$: console.log({data})
 
 
 
