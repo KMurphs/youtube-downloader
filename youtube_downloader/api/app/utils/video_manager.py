@@ -40,6 +40,7 @@ def process_video(video: Dict, is_new=False):
 
 
 def download_videos():
+  logging.info(f"Starting download videos routine")
   it = em.get_results_iterator(query = { "bool": {"filter": [{ "term":  { "status": "0" } }] }})
   for doc in it:
     
