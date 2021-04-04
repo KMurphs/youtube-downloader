@@ -46,6 +46,7 @@ services:
       - ./api/thumbnails:/youtube_downloader/thumbnails/
       - ./api/videos:/youtube_downloader/videos/
       - ./api/bundles:/youtube_downloader/bundles/
+      - ./api/logs:/youtube_downloader/logs/
       # - ./api/videos:/youtube_downloader/app/
     ports:
       - 4444:8000

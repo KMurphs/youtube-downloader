@@ -1,5 +1,6 @@
 import os
 import logging
+import sys
 
 
 def setup_logging(level=logging.DEBUG):
@@ -12,5 +13,21 @@ def setup_logging(level=logging.DEBUG):
 
 
 
+def setup_logging_to_file(level=logging.DEBUG, file="logs.log"):
+    logger = logging.getLogger()
+    logger.setLevel(level)
+    formatter = logging.Formatter('%(asctime)s | %(levelname)s | %(message)s', 
+                                '%m-%d-%Y %H:%M:%S')
+
+    stdout_handler = logging.StreamHandler(sys.stdout)
+    stdout_handler.setLevel(logging.DEBUG)
+    stdout_handler.setFormatter(formatter)
+
+    file_handler = logging.FileHandler(file)
+    file_handler.setLevel(logging.DEBUG)
+    file_handler.setFormatter(formatter)
+
+    logger.addHandler(file_handler)
+    logger.addHandler(stdout_handler)
 
 
